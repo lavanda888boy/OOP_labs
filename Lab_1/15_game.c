@@ -27,6 +27,12 @@ void startTheGame(){
     }
   }
 
+  // creating the random position for the null/space element
+  srand(time(NULL));
+  int row = rand() % 4;
+
+  swap(&gameBoard[0][0], &gameBoard[row][0]);
+
   for(int index = 0; index < 4; index++){
     srand(time(NULL));
 
@@ -39,6 +45,11 @@ void startTheGame(){
   printTheCurrentStateOfTheGame(gameBoard);
 
   while(1){
+    char option = getchar();
+    if(option == 'm'){
+      break;
+    }
+
     int number, direction;
     scanf("%d %d", &number, &direction);
 
@@ -58,9 +69,13 @@ void printTheCurrentStateOfTheGame(int matrix[][4]){
   for(int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){
       if(matrix[i][j] == 0){
-        printf(" ");
+        printf("   |");
       } else{
-        printf("%d ", matrix[i][j]);
+        if(matrix[i][j] / 10  ==  0){
+          printf(" %d |", matrix[i][j]);
+        } else{
+          printf("%d |", matrix[i][j]);
+        }
       }
     }
     printf("\n");
@@ -78,8 +93,7 @@ int main(void){
     printf("In order to start a new game press 's'.\n");
     printf("If you wish to exit the game press 'e'.\n");
 
-    char c;
-    scanf("%c", &c);
+    char c = getchar();
     printf("\n");
 
     // choosing the options of the game
