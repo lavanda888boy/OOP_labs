@@ -50,12 +50,10 @@ void startTheGame(){
       break;
     }
 
-    int number, direction;
-    scanf("%d %d", &number, &direction);
+    int number;
+    char direction;
+    scanf("%d %c", &number, &direction);
 
-    if(number == 0  &&  direction == 0){
-      break;
-    }
 
     printTheCurrentStateOfTheGame(gameBoard);
   }
