@@ -12,10 +12,6 @@ void swap(int *a, int *b){
 
 // main function representing the gaming process itself
 void startTheGame(){
-  printf("The game starts!\nTo return to the main menu press 'm'.\n");
-  printf("Type the direction you wish to move the space and 4, 6, 8, 2.\n");
-  printf("The second number will represent the direction of movement.\n");
-  printf("Left, right, up, or down respectively.\n\n");
 
   // filling the game matrix with the numbers from 0 to 15
   // and then shuffling them randomly
@@ -65,7 +61,9 @@ void startTheGame(){
     }
 
     processMatrix(gameBoard, direction, coord[0], coord[1]);
+    system("clear");
 
+    printMenu();
     printTheCurrentStateOfTheGame(gameBoard);
   }
 
@@ -100,8 +98,17 @@ void processMatrix(int matrix[][4], int dir, int nullRow, int nullColumn){
       break;
 
     default:
-      printf("Wrong direction!\n");
+      printf("\nWrong direction!\n");
   }
+}
+
+
+// utility function to print the instructions of the game
+void printMenu(){
+  printf("The game starts!\nTo return to the main menu press 'm'.\n");
+  printf("Type the direction you wish to move the space and 4, 6, 8, 2.\n");
+  printf("The second number will represent the direction of movement.\n");
+  printf("Left, right, up, or down respectively.\n\n");
 }
 
 
