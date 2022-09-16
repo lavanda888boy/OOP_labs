@@ -12,10 +12,9 @@ void swap(int *a, int *b){
 
 // main function representing the gaming process itself
 void startTheGame(){
-  printf("The game starts!\nTo return to the main menu press '0 0'.\n");
-  printf("Type the number you wish to move and 4, 6, 8, 2 with a single space.\n");
-  printf("The second number will represent the direction of movement.\n");
-  printf("Left, right, up, or down respectively.\n\n");
+
+  system("clear");
+  printMenu();
 
   // filling the game matrix with the numbers from 0 to 15
   // and then shuffling them randomly
@@ -46,20 +45,76 @@ void startTheGame(){
 
   while(1){
     char option = getchar();
+
     if(option == 'm'){
       break;
     }
 
-    int number;
-    char direction;
-    scanf("%d %c", &number, &direction);
+    int direction;
+    scanf("%d", &direction);
 
+    int coord[2];
 
+    for(int i = 0; i < 4; i++){
+      for(int j = 0; j < 4; j++){
+        if(gameBoard[i][j] == 0){
+          coord[0] = i;
+          coord[1] = j;
+        }
+      }
+    }
+
+    processMatrix(gameBoard, direction, coord[0], coord[1]);
+    system("clear");
+
+    printMenu();
     printTheCurrentStateOfTheGame(gameBoard);
   }
 
   return;
 }
+
+
+// function which moves the white space in a certain direction
+// genrally the main action in the game
+void processMatrix(int matrix[][4], int dir, int nullRow, int nullColumn){
+  int temp;
+
+  switch(dir){
+    case 4:
+      matrix[nullRow][nullColumn] = matrix[nullRow][nullColumn - 1];
+      matrix[nullRow][nullColumn - 1] = 0;
+      break;
+
+    case 8:
+      matrix[nullRow][nullColumn] = matrix[nullRow - 1][nullColumn];
+      matrix[nullRow - 1][nullColumn] = 0;
+      break;
+
+    case 6:
+      matrix[nullRow][nullColumn] = matrix[nullRow][nullColumn + 1];
+      matrix[nullRow][nullColumn + 1] = 0;
+      break;
+
+    case 2:
+      matrix[nullRow][nullColumn] = matrix[nullRow + 1][nullColumn];
+      matrix[nullRow + 1][nullColumn] = 0;
+      break;
+
+    default:
+      printf("\nWrong direction!\n");
+  }
+}
+
+
+// utility function to print the instructions of the game
+void printMenu(){
+  printf("\033[34m\033[101mThe game starts!\nTo return to the main menu press 'm'.\033[0m\n");
+  printf("\033[34m\033[101mType the direction you wish to move the space and 4, 6, 8, 2.\033[0m\n");
+  printf("\033[34m\033[101mThe second number will represent the direction of movement.\033[0m\n");
+  printf("\033[34m\033[101mLeft, right, up, or down respectively.\033[0m\n\n");
+}
+
 
 // function for printing the matrix of numbers
 // representing the current situation in the game
@@ -67,12 +122,12 @@ void printTheCurrentStateOfTheGame(int matrix[][4]){
   for(int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){
       if(matrix[i][j] == 0){
-        printf("   |");
+        printf("\033[30m\033[107m   |\033[0m");
       } else{
         if(matrix[i][j] / 10  ==  0){
-          printf(" %d |", matrix[i][j]);
+          printf("\033[30m\033[107m %d |\033[0m", matrix[i][j]);
         } else{
-          printf("%d |", matrix[i][j]);
+          printf("\033[30m\033[107m%d |\033[0m", matrix[i][j]);
         }
       }
     }
@@ -87,9 +142,9 @@ int main(void){
   // initialise the main menu of the game
   while(1){
     system("clear");
-    printf("Welcome to the main menu of the Game of 15!\n");
-    printf("In order to start a new game press 's'.\n");
-    printf("If you wish to exit the game press 'e'.\n");
+    printf("\033[31m\033[102mWelcome to the main menu of the Game of 15!\033[0m\n");
+    printf("\033[31m\033[102mIn order to start a new game press 's'.\033[0m\n");
+    printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
 
     char c = getchar();
     printf("\n");
@@ -98,7 +153,7 @@ int main(void){
     if(c == 's'){
       startTheGame();
     } else if(c == 'e'){
-      printf("Exiting the game...\n");
+      printf("\033[91mExiting the game...\033[0m\n");
       break;
 
     } else{
