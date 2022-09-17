@@ -4,6 +4,9 @@
 
 
 int gameBoard[4][4];
+int *nullRow;
+int *nullColumn;
+int d;
 
 
 // simple function for swapping two numbers
@@ -46,32 +49,37 @@ void startTheGame(){
 
   printTheCurrentStateOfTheGame();
 
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      if(gameBoard[i][j] == 0){
+        *nullRow = i;
+        *nullColumn = j;
+        break;
+      }
+    }
+  }
+
+  int direction;
+
   while(1){
+    d = direction;
+    scanf("%d", &direction);
+
+    if(direction == -1){
+      undoChanges(d);
+    } else{
+      processMatrix(direction);
+    }
+
+    system("clear");
+    printMenu();
+    printTheCurrentStateOfTheGame();
+
     char option = getchar();
 
     if(option == 'm'){
       break;
     }
-
-    int direction;
-    scanf("%d", &direction);
-
-    int coord[2];
-
-    for(int i = 0; i < 4; i++){
-      for(int j = 0; j < 4; j++){
-        if(gameBoard[i][j] == 0){
-          coord[0] = i;
-          coord[1] = j;
-        }
-      }
-    }
-
-    processMatrix(direction, coord[0], coord[1]);
-    system("clear");
-
-    printMenu();
-    printTheCurrentStateOfTheGame(gameBoard);
   }
 
   return;
@@ -80,32 +88,52 @@ void startTheGame(){
 
 // function which moves the white space in a certain direction
 // genrally the main action in the game
-void processMatrix(int dir, int nullRow, int nullColumn){
-  int temp;
-
+void processMatrix(int dir){
   switch(dir){
     case 4:
-      gameBoard[nullRow][nullColumn] = gameBoard[nullRow][nullColumn - 1];
-      gameBoard[nullRow][nullColumn - 1] = 0;
+      gameBoard[*nullRow][*nullColumn] = gameBoard[*nullRow][(*nullColumn) - 1];
+      gameBoard[*nullRow][(*nullColumn) - 1] = 0;
+      (*nullColumn)--;
       break;
 
     case 8:
-      gameBoard[nullRow][nullColumn] = gameBoard[nullRow - 1][nullColumn];
-      gameBoard[nullRow - 1][nullColumn] = 0;
+      gameBoard[*nullRow][*nullColumn] = gameBoard[(*nullRow) - 1][*nullColumn];
+      gameBoard[(*nullRow) - 1][*nullColumn] = 0;
+      (*nullRow)--;
       break;
 
     case 6:
-      gameBoard[nullRow][nullColumn] = gameBoard[nullRow][nullColumn + 1];
-      gameBoard[nullRow][nullColumn + 1] = 0;
+      gameBoard[*nullRow][*nullColumn] = gameBoard[*nullRow][(*nullColumn) + 1];
+      gameBoard[*nullRow][(*nullColumn) + 1] = 0;
+      (*nullColumn)++;
       break;
 
     case 2:
-      gameBoard[nullRow][nullColumn] = gameBoard[nullRow + 1][nullColumn];
-      gameBoard[nullRow + 1][nullColumn] = 0;
+      gameBoard[*nullRow][*nullColumn] = gameBoard[(*nullRow) + 1][*nullColumn];
+      gameBoard[(*nullRow) + 1][*nullColumn] = 0;
+      (*nullRow)++;
       break;
 
     default:
-      printf("\nWrong direction!\n");
+
+  }
+}
+
+
+// function which reverts the last move made by the player
+void undoChanges(int dir){
+  if(dir == 4){
+    processMatrix(6);
+    return;
+  } else if(dir == 6){
+    processMatrix(4);
+    return;
+  } else if(dir == 8){
+    processMatrix(2);
+    return;
+  } else if(dir == 2){
+    processMatrix(8);
+    return;
   }
 }
 
@@ -114,8 +142,8 @@ void processMatrix(int dir, int nullRow, int nullColumn){
 void printMenu(){
   printf("\033[34m\033[101mThe game starts!\nTo return to the main menu press 'm'.\033[0m\n");
   printf("\033[34m\033[101mType the direction you wish to move the space and 4, 6, 8, 2.\033[0m\n");
-  printf("\033[34m\033[101mThe second number will represent the direction of movement.\033[0m\n");
-  printf("\033[34m\033[101mLeft, right, up, or down respectively.\033[0m\n\n");
+  printf("\033[34m\033[101mLeft, right, up, or down respectively.\033[0m\n");
+  printf("\033[34m\033[101mType -1 to undo your last move.\033[0m\n");
 }
 
 
@@ -141,6 +169,9 @@ void printTheCurrentStateOfTheGame(){
 
 
 int main(void){
+
+  nullRow = (int*)malloc(1*sizeof(int));
+  nullColumn = (int*)malloc(1*sizeof(int));
 
   // initialise the main menu of the game
   while(1){
