@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+int gameBoard[4][4];
+
+
 // simple function for swapping two numbers
 void swap(int *a, int *b){
   int temp = *a;
@@ -18,7 +22,6 @@ void startTheGame(){
 
   // filling the game matrix with the numbers from 0 to 15
   // and then shuffling them randomly
-  int gameBoard[4][4];
   int num = 0;
   for(int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){
@@ -41,7 +44,7 @@ void startTheGame(){
     }
   }
 
-  printTheCurrentStateOfTheGame(gameBoard);
+  printTheCurrentStateOfTheGame();
 
   while(1){
     char option = getchar();
@@ -64,7 +67,7 @@ void startTheGame(){
       }
     }
 
-    processMatrix(gameBoard, direction, coord[0], coord[1]);
+    processMatrix(direction, coord[0], coord[1]);
     system("clear");
 
     printMenu();
@@ -77,28 +80,28 @@ void startTheGame(){
 
 // function which moves the white space in a certain direction
 // genrally the main action in the game
-void processMatrix(int matrix[][4], int dir, int nullRow, int nullColumn){
+void processMatrix(int dir, int nullRow, int nullColumn){
   int temp;
 
   switch(dir){
     case 4:
-      matrix[nullRow][nullColumn] = matrix[nullRow][nullColumn - 1];
-      matrix[nullRow][nullColumn - 1] = 0;
+      gameBoard[nullRow][nullColumn] = gameBoard[nullRow][nullColumn - 1];
+      gameBoard[nullRow][nullColumn - 1] = 0;
       break;
 
     case 8:
-      matrix[nullRow][nullColumn] = matrix[nullRow - 1][nullColumn];
-      matrix[nullRow - 1][nullColumn] = 0;
+      gameBoard[nullRow][nullColumn] = gameBoard[nullRow - 1][nullColumn];
+      gameBoard[nullRow - 1][nullColumn] = 0;
       break;
 
     case 6:
-      matrix[nullRow][nullColumn] = matrix[nullRow][nullColumn + 1];
-      matrix[nullRow][nullColumn + 1] = 0;
+      gameBoard[nullRow][nullColumn] = gameBoard[nullRow][nullColumn + 1];
+      gameBoard[nullRow][nullColumn + 1] = 0;
       break;
 
     case 2:
-      matrix[nullRow][nullColumn] = matrix[nullRow + 1][nullColumn];
-      matrix[nullRow + 1][nullColumn] = 0;
+      gameBoard[nullRow][nullColumn] = gameBoard[nullRow + 1][nullColumn];
+      gameBoard[nullRow + 1][nullColumn] = 0;
       break;
 
     default:
@@ -118,16 +121,16 @@ void printMenu(){
 
 // function for printing the matrix of numbers
 // representing the current situation in the game
-void printTheCurrentStateOfTheGame(int matrix[][4]){
+void printTheCurrentStateOfTheGame(){
   for(int i = 0; i < 4; i++){
     for(int j = 0; j < 4; j++){
-      if(matrix[i][j] == 0){
+      if(gameBoard[i][j] == 0){
         printf("\033[30m\033[107m   |\033[0m");
       } else{
-        if(matrix[i][j] / 10  ==  0){
-          printf("\033[30m\033[107m %d |\033[0m", matrix[i][j]);
+        if(gameBoard[i][j] / 10  ==  0){
+          printf("\033[30m\033[107m %d |\033[0m", gameBoard[i][j]);
         } else{
-          printf("\033[30m\033[107m%d |\033[0m", matrix[i][j]);
+          printf("\033[30m\033[107m%d |\033[0m", gameBoard[i][j]);
         }
       }
     }
