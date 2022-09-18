@@ -7,6 +7,7 @@ int gameBoard[4][4];
 int *nullRow;
 int *nullColumn;
 int d;
+int restartMarker;
 
 
 // simple function for swapping two numbers
@@ -18,7 +19,7 @@ void swap(int *a, int *b){
 
 
 // main function representing the gaming process itself
-void startTheGame(){
+int startTheGame(){
 
   system("clear");
   printMenu();
@@ -79,10 +80,12 @@ void startTheGame(){
 
     if(option == 'm'){
       break;
+    } else if(option == 'r'){
+      return 1;
     }
   }
 
-  return;
+  return 0;
 }
 
 
@@ -140,10 +143,16 @@ void undoChanges(int dir){
 
 // utility function to print the instructions of the game
 void printMenu(){
-  printf("\033[34m\033[101mThe game starts!\nTo return to the main menu press 'm'.\033[0m\n");
+  if(restartMarker == 0){
+    printf("\033[34m\033[101mThe game starts!\nTo return to the main menu press 'm'.\033[0m\n");
+  } else{
+    printf("\033[34m\033[101mThe new game started!!!\nTo return to the main menu press 'm'.\033[0m\n");
+  }
+
+  printf("\033[34m\033[101mTo restart the current game press 'r'.\033[0m\n");
   printf("\033[34m\033[101mType the direction you wish to move the space and 4, 6, 8, 2.\033[0m\n");
   printf("\033[34m\033[101mLeft, right, up, or down respectively.\033[0m\n");
-  printf("\033[34m\033[101mType -1 to undo your last move.\033[0m\n");
+  printf("\033[34m\033[101mType -1 to undo your last move.\033[0m\n\n");
 }
 
 
@@ -175,24 +184,33 @@ int main(void){
 
   // initialise the main menu of the game
   while(1){
-    system("clear");
-    printf("\033[31m\033[102mWelcome to the main menu of the Game of 15!\033[0m\n");
-    printf("\033[31m\033[102mIn order to start a new game press 's'.\033[0m\n");
-    printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
 
-    char c = getchar();
-    printf("\n");
+    if(restartMarker == 0){
+      system("clear");
+      printf("\033[31m\033[102mWelcome to the main menu of the Game of 15!\033[0m\n");
+      printf("\033[31m\033[102mIn order to start a new game press 's'.\033[0m\n");
+      printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
 
-    // choosing the options of the game
-    if(c == 's'){
-      startTheGame();
-    } else if(c == 'e'){
-      printf("\033[91mExiting the game...\033[0m\n");
-      break;
+      char c = getchar();
+      printf("\n");
 
+      // choosing the options of the game
+      if(c == 's'){
+        restartMarker = startTheGame();
+      } else if(c == 'e'){
+        printf("\033[91mExiting the game...\033[0m\n");
+        free(nullRow);
+        free(nullColumn);
+        break;
+
+      } else{
+
+      }
     } else{
-
+      restartMarker = startTheGame();
     }
+
+
 
   }
 
