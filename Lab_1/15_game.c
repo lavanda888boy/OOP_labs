@@ -4,11 +4,16 @@
 
 
 int gameBoard[4][4];
+const char *fileName = "game_data.txt";
+
 int *nullRow;
 int *nullColumn;
+
 int d;
+
 int restartMarker;
 int victoryMarker;
+int pauseMarker;
 
 
 // simple function for swapping two numbers
@@ -25,29 +30,34 @@ int startTheGame(){
   system("clear");
   printMenu();
 
-  // filling the game matrix with the numbers from 0 to 15
-  // and then shuffling them randomly
-  int num = 0;
-  for(int i = 0; i < 4; i++){
-    for(int j = 0; j < 4; j++){
-      gameBoard[i][j] = num++;
+  if(pauseMarker == 0){
+    // filling the game matrix with the numbers from 0 to 15
+    // and then shuffling them randomly
+    int num = 0;
+    for(int i = 0; i < 4; i++){
+      for(int j = 0; j < 4; j++){
+        gameBoard[i][j] = num++;
+      }
     }
-  }
 
-  // creating the random position for the null/space element
-  srand(time(NULL));
-  int row = rand() % 4;
-
-  swap(&gameBoard[0][0], &gameBoard[row][0]);
-
-  for(int index = 0; index < 4; index++){
+    // creating the random position for the null/space element
     srand(time(NULL));
+    int row = rand() % 4;
 
-    for(int i = 3; i > 0; i--){
-      int j = rand() % (i + 1);
-      swap(&gameBoard[index][i], &gameBoard[index][j]);
+    swap(&gameBoard[0][0], &gameBoard[row][0]);
+
+    for(int index = 0; index < 4; index++){
+      srand(time(NULL));
+
+      for(int i = 3; i > 0; i--){
+        int j = rand() % (i + 1);
+        swap(&gameBoard[index][i], &gameBoard[index][j]);
+      }
     }
+  } else{
+    pauseMarker = 0;
   }
+
 
   printTheCurrentStateOfTheGame();
 
@@ -64,6 +74,8 @@ int startTheGame(){
   int direction;
 
   while(1){
+    recordStateOfTheGame();
+
     victoryMarker = checkVictory();
     if(victoryMarker == 1){
       return 0;
@@ -88,6 +100,9 @@ int startTheGame(){
       break;
     } else if(option == 'r'){
       return 1;
+    } else if(option == 'p'){
+        pauseMarker = 1;
+        break;
     }
   }
 
@@ -151,6 +166,7 @@ void undoChanges(int dir){
 // there can be two winning situations when the space
 // is situated in the upper left corener of the matrix
 // or in the botoom right
+// in addition, the matrix is converted into an array
 int checkVictory(){
   int lineMatrix[16];
   int index = 0;
@@ -181,6 +197,62 @@ int checkVictory(){
 }
 
 
+// function which converts the matrix into an array
+// and then writes it into the file "game_data.txt"
+void recordStateOfTheGame(){
+  int lineMatrix[16];
+  int index = 0;
+
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      lineMatrix[index++] = gameBoard[i][j];
+    }
+  }
+
+  FILE *f = fopen(fileName, "w");
+  if(f == NULL){
+    perror("File was not opened");
+    return;
+  }
+
+  for(int k = 0; k < 16; k++){
+    fwrite(&lineMatrix[k], sizeof(int), 1, f);
+  }
+
+  fclose(f);
+  return;
+}
+
+
+// function to read the file with the current game state,
+// convert the array back into a matrix and then update the gameBoard variable
+void readTheGameState(){
+  FILE *f = fopen(fileName, "r");
+  if(f == NULL){
+    perror("File was not opened");
+    return;
+  }
+
+  int lineMatrix[16];
+  fread(lineMatrix, sizeof(int), 16, f);
+  fclose(f);
+
+  int k = 0;
+  int i = 0;
+  int j = 0;
+  while(k < 16){
+    if(k % 4 == 0  &&  k != 0){
+      i++;
+      j = 0;
+    }
+
+    gameBoard[i][j++] = lineMatrix[k++];
+  }
+
+  return;
+}
+
+
 // utility function to print the instructions of the game
 void printMenu(){
   if(restartMarker == 0){
@@ -190,6 +262,7 @@ void printMenu(){
   }
 
   printf("\033[34m\033[101mTo restart the current game press 'r'.\033[0m\n");
+  printf("\033[34m\033[101mTo pause the game press 'p'.\033[0m\n");
   printf("\033[34m\033[101mType the direction you wish to move the space and 4, 6, 8, 2.\033[0m\n");
   printf("\033[34m\033[101mLeft, right, up, or down respectively.\033[0m\n");
   printf("\033[34m\033[101mType -1 to undo your last move.\033[0m\n\n");
@@ -218,6 +291,7 @@ void printTheCurrentStateOfTheGame(){
 }
 
 
+
 int main(void){
 
   nullRow = (int*)malloc(1*sizeof(int));
@@ -230,6 +304,12 @@ int main(void){
       system("clear");
       printf("\033[31m\033[102mWelcome to the main menu of the Game of 15!\033[0m\n");
       printf("\033[31m\033[102mIn order to start a new game press 's'.\033[0m\n");
+
+      if(pauseMarker == 1){
+        printf("\033[31m\033[102mTo resume the game press 'r'.\033[0m\n");
+        printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
+      }
+      
       printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
 
       char c = getchar();
@@ -237,6 +317,9 @@ int main(void){
 
       // choosing the options of the game
       if(c == 's'){
+        restartMarker = startTheGame();
+      } else if(c == 'r'){
+        readTheGameState();
         restartMarker = startTheGame();
       } else if(c == 'e'){
         printf("\033[91mExiting the game...\033[0m\n");
@@ -250,7 +333,7 @@ int main(void){
         printf("\033[31m\033[102mIn order to start a new game press 's'.\033[0m\n");
         printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
       } else{
-        
+
       }
     } else{
       restartMarker = startTheGame();
