@@ -8,6 +8,7 @@ int *nullRow;
 int *nullColumn;
 int d;
 int restartMarker;
+int victoryMarker;
 
 
 // simple function for swapping two numbers
@@ -63,6 +64,11 @@ int startTheGame(){
   int direction;
 
   while(1){
+    victoryMarker = checkVictory();
+    if(victoryMarker == 1){
+      return 0;
+    }
+
     d = direction;
     scanf("%d", &direction);
 
@@ -141,6 +147,40 @@ void undoChanges(int dir){
 }
 
 
+// function which returns 1 if the game is won
+// there can be two winning situations when the space
+// is situated in the upper left corener of the matrix
+// or in the botoom right
+int checkVictory(){
+  int lineMatrix[16];
+  int index = 0;
+
+  for(int i = 0; i < 4; i++){
+    for(int j = 0; j < 4; j++){
+      lineMatrix[index++] = gameBoard[i][j];
+    }
+  }
+
+  if(lineMatrix[0] == 0){
+    for(int k = 1; k < 16; k++){
+      if(lineMatrix[k] - 1  !=  lineMatrix[k - 1]){
+          return 0;
+      }
+    }
+  } else if(lineMatrix[15] == 0){
+    for(int k = 1; k < 15; k++){
+      if(lineMatrix[k] - 1  !=  lineMatrix[k - 1]){
+          return 0;
+      }
+    }
+  } else{
+    return 0;
+  }
+
+  return 1;
+}
+
+
 // utility function to print the instructions of the game
 void printMenu(){
   if(restartMarker == 0){
@@ -154,6 +194,7 @@ void printMenu(){
   printf("\033[34m\033[101mLeft, right, up, or down respectively.\033[0m\n");
   printf("\033[34m\033[101mType -1 to undo your last move.\033[0m\n\n");
 }
+
 
 
 // function for printing the matrix of numbers
@@ -203,8 +244,13 @@ int main(void){
         free(nullColumn);
         break;
 
+      } else if(victoryMarker == 1){
+        system("clear");
+        printf("\033[31m\033[102mCongratulations!!! You won the game!!!\033[0m\n");
+        printf("\033[31m\033[102mIn order to start a new game press 's'.\033[0m\n");
+        printf("\033[31m\033[102mIf you wish to exit the game press 'e'.\033[0m\n");
       } else{
-
+        
       }
     } else{
       restartMarker = startTheGame();
