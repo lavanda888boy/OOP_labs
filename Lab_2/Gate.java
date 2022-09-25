@@ -12,10 +12,12 @@ public class Gate{
 
   public void open(){
     this.opened = true;
+    System.out.println("The gate is opened");
   }
 
   public void close(){
     this.opened = false;
+    System.out.println("The gate is closed");
   }
 
 }
