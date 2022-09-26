@@ -12,5 +12,11 @@ public class PaymentTerminal{
 
     public void setWorkingState(boolean state){
         workingState = state;
+
+        if(state == true){
+            System.out.println("The payment terminal is turned on");
+        } else{
+            System.out.println("The payment terminal is turned off");
+        }
     }
 }

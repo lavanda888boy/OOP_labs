@@ -26,6 +26,22 @@ public class Parking{
     return this.workingState;
   }
 
+  public void open(){
+    this.workingState = true;
+    this.paymentTerminal.setWorkingState(true);
+    this.elevator.setWorkingState(true);
+
+    System.out.println("The parking is opened");
+  }
+
+  public void close(){
+    this.workingState = false;
+    this.paymentTerminal.setWorkingState(false);
+    this.elevator.setWorkingState(false);
+
+    System.out.println("The parking is closed");
+  }
+
   public List<Level> getLevels(){
     return this.levels;
   }
@@ -49,6 +65,4 @@ public class Parking{
   public CarQueue getCarQueue(){
     return this.carQueue;
   }
-
-  
 }
