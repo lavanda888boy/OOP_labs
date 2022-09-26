@@ -3,6 +3,8 @@ import java.util.LinkedList;
 
 public class Parking{
 
+  private boolean workingState;
+
   private List<Level> levels;
   private Gate gate;
   private Elevator elevator;
@@ -11,12 +13,17 @@ public class Parking{
   private CarQueue carQueue;
 
   public Parking(Gate g, Elevator el, PaymentTerminal pt, ServiceManager sm, CarQueue cq){
+    workingState = false;
     levels = new LinkedList<>();
     gate = g;
     elevator = el;
     paymentTerminal = pt;
     serviceManager = sm;
     carQueue = cq;
+  }
+
+  public boolean getWorkingState(){
+    return this.workingState;
   }
 
   public List<Level> getLevels(){
@@ -42,4 +49,6 @@ public class Parking{
   public CarQueue getCarQueue(){
     return this.carQueue;
   }
+
+  
 }
