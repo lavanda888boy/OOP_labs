@@ -8,6 +8,6 @@ public class Simulation{
         CarQueue carQueue = new CarQueue();
 
         Parking parking = new Parking(gate, elevator, paymentTerminal, serviceManager, carQueue);
-        parking.getCarQueue().addCar(new Car(new Driver("Bob"), "usual", 1200));
+        parking.getCarQueue().addCar(new Car("DTE 430", new Driver("Bob"), "usual", 1200));
     }
 }

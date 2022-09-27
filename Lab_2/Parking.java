@@ -76,13 +76,13 @@ public class Parking{
         for(int i = 0; i < array.length; i++){
           if(!array[i].getParkingPlaceState()){
             array[i].occupy(c);
-            System.out.println("The car with driver " + c.getDriver().getName() + " parked on the level " + l.getNumber());
+            System.out.println("The car with id " + c.getID() + " parked on the level " + l.getNumber());
             break;
           }
         }
       } else{
         if(index == levels.size() - 1){
-          System.out.println("The car with driver " + c.getDriver().getName() + " can not be parked");
+          System.out.println("The car with id " + c.getID() + " can not be parked");
         }
         this.elevator.lift(levels.get(index + 1), c);
       }

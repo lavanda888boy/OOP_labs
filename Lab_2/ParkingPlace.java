@@ -19,7 +19,7 @@ public class ParkingPlace{
   public void occupy(Car car){
     this.car = car;
     this.occupied = true;
-    System.out.println("A parking place was occupied by the car with owner " + car.getDriver().getName());
+    System.out.println("A parking place was occupied by the car with id " + car.getID());
   }
 
   public void free(){

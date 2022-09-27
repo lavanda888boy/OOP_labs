@@ -11,12 +11,12 @@ public class CarQueue{
 
   public void addCar(Car c){
     carQueue.add(c);
-    System.out.println("The car with owner " + c.getDriver().getName() + " was added to the queue");
+    System.out.println("The car with id " + c.getID() + " was added to the queue");
   }
 
   public Car removeCar(){
     Car car = carQueue.remove();
-    System.out.println("The car with owner " + car.getDriver().getName() + " left the queue");
+    System.out.println("The car with id " + car.getID() + " left the queue");
     return car;
   }
 
