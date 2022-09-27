@@ -5,12 +5,12 @@ public class Level{
 
   private int number;
   private int capacity;
-  private List<ParkingPlace> listOfParkingPlaces;
+  private ParkingPlace[] arrayOfParkingPlaces;
 
   public Level(int number, int capacity){
     this.number = number;
     this.capacity = capacity;
-    listOfParkingPlaces = new ArrayList<>();
+    listOfParkingPlaces = new ParkingPlace[capacity];
   }
 
   public int getNumber(){
@@ -21,11 +21,19 @@ public class Level{
     return this.capacity;
   }
 
-  public List<ParkingPlace> getListOfParkingPlaces(){
-    return listOfParkingPlaces;
+  public ParkingPlace[] getArrayOfParkingPlaces(){
+    return arrayOfParkingPlaces;
   }
 
-  public void isFull(){
-
+  public boolean isFull(){
+    for(int i = 0; i < arrayOfParkingPlaces.length; i++){
+      if(!arrayOfParkingPlaces[i].getParkingPlaceState()){
+        System.out.println("There are available parking places on level " + arrayOfParkingPlaces[i].getNumber());
+        return false;
+      }
+    }
+    System.out.println("There no free parking places on level " + arrayOfParkingPlaces[i].getNumber());
+    return true;
   }
+  
 }

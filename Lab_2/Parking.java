@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Parking{
 
@@ -64,5 +64,28 @@ public class Parking{
 
   public CarQueue getCarQueue(){
     return this.carQueue;
+  }
+
+  public void parkTheCar(){
+    Car c = this.carQueue.removeCar();
+
+    for(int index = 0; index < this.levels.size(); index++){
+      Level l = levels.get(index);
+      if(!l.isFull()){
+        ParkingPlace[] array = l.getArrayOfParkingPlaces();
+        for(int i = 0; i < array.length; i++){
+          if(!array[i].getParkingPlaceState()){
+            array[i].occupy(c);
+            System.out.println("The car with driver " + c.getDriver().getName() + " parked on the level " + l.getNumber());
+            break;
+          }
+        }
+      } else{
+        if(index == levels.size() - 1){
+          System.out.println("The car with driver " + c.getDriver().getName() + " can not be parked");
+        }
+        this.elevator.lift(levels.get(index + 1), c);
+      }
+    }
   }
 }

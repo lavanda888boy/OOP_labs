@@ -11,7 +11,7 @@ public class ServiceManager{
     }
 
     public void openParking(Parking p){
-        if(p.getWorkingState() = false){
+        if(p.getWorkingState() == false){
             p.open();
             System.out.println("SM " + this.name + " opens the parking");
         } else{
@@ -20,7 +20,7 @@ public class ServiceManager{
     }
 
     public void closeParking(Parking p){
-        if(p.getWorkingState() = true){
+        if(p.getWorkingState() == true){
             p.close();
             System.out.println("SM " + this.name + " closes the parking");
         } else{
