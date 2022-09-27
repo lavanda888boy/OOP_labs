@@ -75,8 +75,10 @@ public class Parking{
         List<ParkingPlace> list = l.getListOfParkingPlaces();
         for(int i = 0; i < list.size(); i++){
           if(!list.get(i).getParkingPlaceState()){
+            this.gate.open();
             list.get(i).occupy(c);
             System.out.println("The car with id " + c.getID() + " parked on the level " + l.getNumber());
+            this.gate.close();
             return;
           }
         }
@@ -95,8 +97,10 @@ public class Parking{
       int pos = level.getCarPosition(id);
       if(pos != -1){
         List<ParkingPlace> pp = level.getListOfParkingPlaces();
+        this.gate.open();
         pp.get(pos).free();
         System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
+        this.gate.close();
         return;
       }
     }

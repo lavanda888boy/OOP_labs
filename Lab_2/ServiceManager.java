@@ -12,8 +12,8 @@ public class ServiceManager{
 
     public void openParking(Parking p){
         if(p.getWorkingState() == false){
-            p.open();
             System.out.println("SM " + this.name + " opens the parking");
+            p.open();
         } else{
             System.out.println("The parking is already opened");
         }
@@ -21,8 +21,8 @@ public class ServiceManager{
 
     public void closeParking(Parking p){
         if(p.getWorkingState() == true){
-            p.close();
             System.out.println("SM " + this.name + " closes the parking");
+            p.close();
         } else{
             System.out.println("The parking is already closed");
         }

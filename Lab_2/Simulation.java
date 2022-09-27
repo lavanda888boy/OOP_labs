@@ -18,6 +18,7 @@ public class Simulation{
         parking.getCarQueue().addCar(new Car("DTE 430", new Driver("Bob"), "usual", 1200));
         parking.getCarQueue().addCar(new Car("GHG 788", new Driver("Steve"), "usual", 1600));
         parking.getCarQueue().addCar(new Car("KLK 670", new Driver("Bill"), "usual", 1300));
+        System.out.println();
 
         parking.parkTheCar();
         System.out.println();
