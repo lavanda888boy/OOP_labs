@@ -12,10 +12,19 @@ public class Simulation{
         parking.getLevels().add(new Level(0, 2));
         parking.getLevels().add(new Level(1, 1));
 
+        serviceManager.openParking(parking);
+        System.out.println();
+
         parking.getCarQueue().addCar(new Car("DTE 430", new Driver("Bob"), "usual", 1200));
         parking.getCarQueue().addCar(new Car("GHG 788", new Driver("Steve"), "usual", 1600));
         parking.getCarQueue().addCar(new Car("KLK 670", new Driver("Bill"), "usual", 1300));
 
         parking.parkTheCar();
+        System.out.println();
+
+        parking.parkTheCar();
+        System.out.println();
+        
+        parking.removeTheCar("DTE 430");
     }
 }

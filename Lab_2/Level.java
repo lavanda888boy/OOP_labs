@@ -5,11 +5,16 @@ public class Level{
 
   private int number;
   private int capacity;
-  private ParkingPlace[] arrayOfParkingPlaces = new ParkingPlace[capacity];
+  private List<ParkingPlace> listOfParkingPlaces;
 
   public Level(int number, int capacity){
     this.number = number;
     this.capacity = capacity;
+    listOfParkingPlaces = new ArrayList<>();
+
+    for(int i = 0; i < capacity; i++){
+      listOfParkingPlaces.add(new ParkingPlace());
+    }
   }
 
   public int getNumber(){
@@ -20,13 +25,13 @@ public class Level{
     return this.capacity;
   }
 
-  public ParkingPlace[] getArrayOfParkingPlaces(){
-    return arrayOfParkingPlaces;
+  public List<ParkingPlace> getListOfParkingPlaces(){
+    return listOfParkingPlaces;
   }
 
   public boolean isFull(){
-    for(int i = 0; i < arrayOfParkingPlaces.length; i++){
-      if(!arrayOfParkingPlaces[i].getParkingPlaceState()){
+    for(int i = 0; i < listOfParkingPlaces.size(); i++){
+      if(!listOfParkingPlaces.get(i).getParkingPlaceState()){
         System.out.println("There are available parking places on level " + getNumber());
         return false;
       }
@@ -36,8 +41,8 @@ public class Level{
   }
 
   public int getCarPosition(String id){
-    for(int i = 0; i < arrayOfParkingPlaces.length; i++){
-      if(arrayOfParkingPlaces[i].getCar().getID().equals(id)){
+    for(int i = 0; i < listOfParkingPlaces.size(); i++){
+      if(listOfParkingPlaces.get(i).getCar().getID().compareTo(id) == 0){
         return i;
       }
     }

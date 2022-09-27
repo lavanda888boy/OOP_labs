@@ -1,8 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.sound.sampled.SourceDataLine;
-
 public class Parking{
 
   private boolean workingState;
@@ -74,12 +72,12 @@ public class Parking{
     for(int index = 0; index < this.levels.size(); index++){
       Level l = levels.get(index);
       if(!l.isFull()){
-        ParkingPlace[] array = l.getArrayOfParkingPlaces();
-        for(int i = 0; i < array.length; i++){
-          if(!array[i].getParkingPlaceState()){
-            array[i].occupy(c);
+        List<ParkingPlace> list = l.getListOfParkingPlaces();
+        for(int i = 0; i < list.size(); i++){
+          if(!list.get(i).getParkingPlaceState()){
+            list.get(i).occupy(c);
             System.out.println("The car with id " + c.getID() + " parked on the level " + l.getNumber());
-            break;
+            return;
           }
         }
       } else{
@@ -96,9 +94,9 @@ public class Parking{
     for(Level level : levels){
       int pos = level.getCarPosition(id);
       if(pos != -1){
-        ParkingPlace[] pp = level.getArrayOfParkingPlaces();
-        pp[pos].free();
-        System.out.println("Car with id " + id + " left the parking");
+        List<ParkingPlace> pp = level.getListOfParkingPlaces();
+        pp.get(pos).free();
+        System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
         return;
       }
     }

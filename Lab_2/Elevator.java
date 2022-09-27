@@ -12,7 +12,7 @@ public class Elevator{
     if(this.maxWeight < c.getMass()){
       System.out.println("The car can not be moved to another level");
     } else{
-      System.out.println("The was moved to level " + l.getNumber());
+      System.out.println("The car was moved to level " + l.getNumber());
     }
   }
 
