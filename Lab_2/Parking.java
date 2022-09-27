@@ -85,8 +85,9 @@ public class Parking{
       } else{
         if(index == levels.size() - 1){
           System.out.println("The car with id " + c.getID() + " can not be parked");
+        } else{
+          this.elevator.lift(levels.get(index + 1), c);
         }
-        this.elevator.lift(levels.get(index + 1), c);
       }
     }
   }

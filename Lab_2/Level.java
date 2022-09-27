@@ -5,12 +5,11 @@ public class Level{
 
   private int number;
   private int capacity;
-  private ParkingPlace[] arrayOfParkingPlaces;
+  private ParkingPlace[] arrayOfParkingPlaces = new ParkingPlace[capacity];
 
   public Level(int number, int capacity){
     this.number = number;
     this.capacity = capacity;
-    arrayOfParkingPlaces = new ParkingPlace[capacity];
   }
 
   public int getNumber(){
@@ -32,7 +31,7 @@ public class Level{
         return false;
       }
     }
-    System.out.println("There no free parking places on level " + getNumber());
+    System.out.println("There are no free parking places on level " + getNumber());
     return true;
   }
 
