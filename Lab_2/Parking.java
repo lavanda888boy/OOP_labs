@@ -97,6 +97,13 @@ public class Parking{
       int pos = level.getCarPosition(id);
       if(pos != -1){
         List<ParkingPlace> pp = level.getListOfParkingPlaces();
+
+        Driver d = pp.get(pos).getCar().getDriver();
+        if(!d.getPaymentState()){
+          System.out.println("The driver " + d.getName() + " has to pay the bill");
+          this.paymentTerminal.proceedPayment(d);
+        }
+
         this.gate.open();
         pp.get(pos).free();
         System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
