@@ -35,5 +35,14 @@ public class Level{
     System.out.println("There no free parking places on level " + getNumber());
     return true;
   }
+
+  public int getCarPosition(String id){
+    for(int i = 0; i < arrayOfParkingPlaces.length; i++){
+      if(arrayOfParkingPlaces[i].getCar().getID().equals(id)){
+        return i;
+      }
+    }
+    return -1;
+  }
   
 }

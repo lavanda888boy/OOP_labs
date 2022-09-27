@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.sound.sampled.SourceDataLine;
+
 public class Parking{
 
   private boolean workingState;
@@ -87,5 +89,18 @@ public class Parking{
         this.elevator.lift(levels.get(index + 1), c);
       }
     }
+  }
+
+  public void removeTheCar(String id){
+    for(Level level : levels){
+      int pos = level.getCarPosition(id);
+      if(pos != -1){
+        ParkingPlace[] pp = level.getArrayOfParkingPlaces();
+        pp[pos].free();
+        System.out.println("Car with id " + id + " left the parking");
+        return;
+      }
+    }
+    System.out.println("There is no such car on the parking");
   }
 }
