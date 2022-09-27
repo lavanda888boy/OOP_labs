@@ -19,4 +19,13 @@ public class PaymentTerminal{
             System.out.println("The payment terminal is turned off");
         }
     }
+
+    public void proceedPayment(Driver d){
+        if(d.getPaymentState()){
+            System.out.println("The driver " + d.getName() + " has already paid the fee");
+        } else{
+            d.setPaymentState(true);
+            System.out.println("The driver " + d.getName() + " paid the fee");
+        }
+    }
 }
