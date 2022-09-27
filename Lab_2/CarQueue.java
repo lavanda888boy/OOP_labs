@@ -14,9 +14,10 @@ public class CarQueue{
     System.out.println("The car with owner " + c.getDriver().getName() + " was added to the queue");
   }
 
-  public void removeCar(){
+  public Car removeCar(){
     Car car = carQueue.remove();
     System.out.println("The car with owner " + car.getDriver().getName() + " left the queue");
+    return car;
   }
 
   public int getNumberOfCarsInTheQueue(){

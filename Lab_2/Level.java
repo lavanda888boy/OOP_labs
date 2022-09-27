@@ -10,7 +10,7 @@ public class Level{
   public Level(int number, int capacity){
     this.number = number;
     this.capacity = capacity;
-    listOfParkingPlaces = new ParkingPlace[capacity];
+    arrayOfParkingPlaces = new ParkingPlace[capacity];
   }
 
   public int getNumber(){
@@ -28,11 +28,11 @@ public class Level{
   public boolean isFull(){
     for(int i = 0; i < arrayOfParkingPlaces.length; i++){
       if(!arrayOfParkingPlaces[i].getParkingPlaceState()){
-        System.out.println("There are available parking places on level " + arrayOfParkingPlaces[i].getNumber());
+        System.out.println("There are available parking places on level " + getNumber());
         return false;
       }
     }
-    System.out.println("There no free parking places on level " + arrayOfParkingPlaces[i].getNumber());
+    System.out.println("There no free parking places on level " + getNumber());
     return true;
   }
   
