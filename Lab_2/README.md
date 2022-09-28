@@ -1,5 +1,8 @@
 MULTI-LEVEL PARKING SIMULATION (PART 1)
 
+I have chosen this model because it seemed to me not to complicated in understanding
+but at the same time having potential to be developed using OOP paradigm.
+
 The main class representing this model is the Parking class.
 It contains the fields which are the instances of another classes
 forming a composition of them. Those are List<Level> l, Elevator, Gate, CarQueue,
