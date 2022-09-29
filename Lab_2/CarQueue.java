@@ -16,8 +16,12 @@ public class CarQueue{
 
   public Car removeCar(){
     Car car = carQueue.remove();
-    System.out.println("The car with id " + car.getID() + " left the queue");
+    System.out.println("The car with id " + car.getID() + " and mass " + car.getMass() + " kg left the queue");
     return car;
+  }
+
+  public boolean isEmptyOfCars(){
+    return carQueue.isEmpty();
   }
 
   public int getNumberOfCarsInTheQueue(){
