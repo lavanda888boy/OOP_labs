@@ -8,11 +8,13 @@ public class Elevator{
     workingState = false;
   }
 
-  public void lift(Level l, Car c){
+  public boolean lift(Level l, Car c){
     if(this.maxWeight < c.getMass()){
       System.out.println("The car can not be moved to another level");
+      return false;
     } else{
       System.out.println("The car was moved to level " + l.getNumber());
+      return true;
     }
   }
 
