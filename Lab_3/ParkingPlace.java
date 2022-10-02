@@ -12,14 +12,21 @@ public class ParkingPlace{
     return this.car;
   }
 
+  public void setCar(Car car){
+    this.car = car;
+  }
+
   public boolean getParkingPlaceState(){
     return this.occupied;
   }
 
+  public void setParkingPlaceState(boolean state){
+    this.occupied = state;
+  }
+
   public void occupy(Car car){
-    this.car = car;
-    this.occupied = true;
-    System.out.println("A parking place was occupied by the car with id " + car.getID());
+    super.setCar(car);
+    super.setParkingPlaceState(true);
   }
 
   public void free(){
