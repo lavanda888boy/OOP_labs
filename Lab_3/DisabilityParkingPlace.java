@@ -8,6 +8,6 @@ public class DisabilityParkingPlace extends ParkingPlace{
     public void occupy(Car car){
         super.occupy(car);
         car.getDriver().setPaymentState(true);
-        System.out.println("A "+ this.getClass().toString() +" was occupied by the "+ car.getClass().toString() +" with id "+ car.getID());
+        System.out.println("The driver does not have to pay fee");
     }
 }

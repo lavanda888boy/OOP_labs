@@ -25,8 +25,8 @@ public class ParkingPlace{
   }
 
   public void occupy(Car car){
-    super.setCar(car);
-    super.setParkingPlaceState(true);
+    this.car = car;
+    this.occupied = true;
   }
 
   public void free(){
