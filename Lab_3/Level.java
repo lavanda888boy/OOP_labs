@@ -3,6 +3,8 @@ import java.util.ArrayList;
 
 public class Level{
 
+  private final int electricity = 5000;
+
   private int number;
   private int capacity;
   private List<ParkingPlace> listOfParkingPlaces;
@@ -12,8 +14,16 @@ public class Level{
     this.capacity = capacity;
     listOfParkingPlaces = new ArrayList<>();
 
-    for(int i = 0; i < capacity; i++){
+    for(int i = 0; i < 0.6 * capacity; i++){
       listOfParkingPlaces.add(new ParkingPlace());
+    }
+
+    for(int i = 0; i < 0.25 * capacity; i++){
+      listOfParkingPlaces.add(new DisabilityParkingPlace());
+    }
+
+    for(int i = 0; i < 0.15 * capacity; i++){
+      listOfParkingPlaces.add(new ElectricParkingPlace(electricity));
     }
   }
 
