@@ -14,16 +14,19 @@ public class Level{
     this.capacity = capacity;
     listOfParkingPlaces = new ArrayList<>();
 
-    for(int i = 0; i < 0.6 * capacity; i++){
-      listOfParkingPlaces.add(new ParkingPlace());
+    for(int i = 0; i < 0.5 * capacity; i++){
+      ParkingPlace pp = new ParkingPlace();
+      listOfParkingPlaces.add(pp);
     }
 
     for(int i = 0; i < 0.25 * capacity; i++){
-      listOfParkingPlaces.add(new DisabilityParkingPlace());
+      ParkingPlace dp = new DisabilityParkingPlace();
+      listOfParkingPlaces.add(dp);
     }
 
-    for(int i = 0; i < 0.15 * capacity; i++){
-      listOfParkingPlaces.add(new ElectricParkingPlace(electricity));
+    for(int i = 0; i < 0.25 * capacity; i++){
+      ParkingPlace ep = new ElectricParkingPlace(electricity);
+      listOfParkingPlaces.add(ep);
     }
   }
 

@@ -14,10 +14,14 @@ public class ElectricParkingPlace extends ParkingPlace{
     @Override
     public void occupy(Car car){
         super.occupy(car);
-        chargeTheCar(car);
+        chargeTheCar((ElectricCar) car);
     }
 
-    private void chargeTheCar(Car car){
+    private void chargeTheCar(ElectricCar car){
+        if(!(car instanceof ElectricCar)){
+            return;
+        }
+        
         int bc = car.getBatteryCapacity();
         int bv = car.getBatteryVolume();
         

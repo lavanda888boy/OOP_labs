@@ -19,28 +19,13 @@ public class Simulation{
         System.out.println();
         
         
-        /*
-        parking.getCarQueue().addCar(new Car("DTE 430", new Driver("Bob"), "usual", 1200));
-        parking.getCarQueue().addCar(new Car("GHG 788", new Driver("Steve"), "usual", 1600));
-        parking.getCarQueue().addCar(new Car("KLK 670", new Driver("Bill"), "usual", 1300));
-        System.out.println();
-
-        parking.parkTheCar();
-        System.out.println();
-
-        parking.parkTheCar();
-        System.out.println();
-        
-        parking.removeTheCar("DTE 430");
-        */
-
         Random r = new Random();
         int queue_size = r.nextInt(10) + 1;
 
         for(int i = 0; i < queue_size; i++) {
             String numberID = generateID();
             int mass = r.nextInt(2000) + 1000;
-            parking.getCarQueue().addCar(new Car(numberID, new Driver("Steve"), "usual", mass));
+            parking.getCarQueue().addCar(new Car(numberID, new Driver("Steve"), mass));
         }
 
         System.out.println();
@@ -49,6 +34,12 @@ public class Simulation{
             parking.parkTheCar();
             System.out.println();
         }
+        /* 
+        ParkingPlace p = new DisabilityParkingPlace();
+
+        if(p instanceof ParkingPlace){
+            System.out.println("ups");
+        } */
     }
 
     private static String generateID(){

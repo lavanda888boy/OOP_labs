@@ -71,20 +71,21 @@ public class Parking{
 
     for(int index = 0; index < this.levels.size(); index++){
       Level l = levels.get(index);
+
       if(!l.isFull()){
         List<ParkingPlace> list = l.getListOfParkingPlaces();
+
         for(int i = 0; i < list.size(); i++){
-          if(!list.get(i).getParkingPlaceState()){
-            this.gate.open();
-            list.get(i).occupy(c);
-            System.out.println("The car with id " + c.getID() + " parked on the level " + l.getNumber());
-            this.gate.close();
-            return;
-          }
-        }
+            if(findThePlaceForTheCar(list, c) == 1){
+              System.out.println("The "+ c.getClass().toString().substring(6) +" with id " + c.getID() + " parked on the level " + l.getNumber());
+              this.gate.close();
+              return;
+            }
+        }  
+        System.out.println("The given car can not be parked on this level due to its type: " + c.getClass().toString().substring(6));          
       } else{
         if(index == levels.size() - 1){
-          System.out.println("The car with id " + c.getID() + " can not be parked");
+          System.out.println("The " + c.getClass().toString().substring(6) + " with id " + c.getID() + " can not be parked");
         } else{
           if(!this.elevator.lift(levels.get(index + 1), c)){
             break;
@@ -94,9 +95,42 @@ public class Parking{
     }
   }
 
+
+  private int findThePlaceForTheCar(List<ParkingPlace> places, Car car){
+    if(car instanceof Car){
+      for (ParkingPlace p : places) {
+        if(!(p instanceof DisabilityParkingPlace)  &&  !(p instanceof ElectricParkingPlace)  &&  !p.getParkingPlaceState()){
+          this.gate.open();
+          p.occupy(car);
+          return 1;
+        }
+      }
+    } else if(car instanceof ElectricCar){
+      for (ParkingPlace p : places) {
+        if(p instanceof ElectricParkingPlace  &&  !p.getParkingPlaceState()){
+          this.gate.open();
+          p.occupy(car);
+          return 1;
+        }
+      }
+    } else{
+      for (ParkingPlace p : places) {
+        if(p instanceof DisabilityParkingPlace  &&  !p.getParkingPlaceState()){
+          this.gate.open();
+          p.occupy(car);
+          return 1;
+        }
+      }
+    }
+
+    return 0;
+  }
+
+
   public void removeTheCar(String id){
     for(Level level : levels){
       int pos = level.getCarPosition(id);
+
       if(pos != -1){
         List<ParkingPlace> pp = level.getListOfParkingPlaces();
 
@@ -110,6 +144,7 @@ public class Parking{
         pp.get(pos).free();
         System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
         this.gate.close();
+
         return;
       }
     }

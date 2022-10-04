@@ -18,10 +18,6 @@ public class Car{
     return this.driver;
   }
 
-  public String getCategory(){
-    return this.category;
-  }
-
   public int getMass(){
     return this.mass;
   }
