@@ -77,7 +77,7 @@ public class Parking{
 
         for(int i = 0; i < list.size(); i++){
             if(findThePlaceForTheCar(list, c) == 1){
-              System.out.println("The "+ c.getClass().toString().substring(6) +" with id " + c.getID() + " parked on the level " + l.getNumber());
+              System.out.println("The "+ c.getClass().toString().substring(6) +" with id " + c.getID() + " is parked on the level " + l.getNumber());
               this.gate.close();
               return;
             }

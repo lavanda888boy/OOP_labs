@@ -25,7 +25,7 @@ public class Simulation{
         for(int i = 0; i < queue_size; i++) {
             String numberID = generateID();
             int mass = r.nextInt(2000) + 1000;
-            parking.getCarQueue().addCar(new ElectricCar(numberID, new Driver("Steve"), mass, 4000, 2500));
+            parking.getCarQueue().addCar(new ElectricCar(numberID, new Driver("Steve"), mass, 4000, 1000));
         }
 
         System.out.println();
@@ -34,12 +34,6 @@ public class Simulation{
             parking.parkTheCar();
             System.out.println();
         }
-        /* 
-        ParkingPlace p = new DisabilityParkingPlace();
-
-        if(p instanceof ParkingPlace){
-            System.out.println("ups");
-        } */
     }
 
     private static String generateID(){

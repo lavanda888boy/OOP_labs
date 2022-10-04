@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Level{
 
-  private final int electricity = 5000;
+  private final int electricity = 2000;
 
   private int number;
   private int capacity;
