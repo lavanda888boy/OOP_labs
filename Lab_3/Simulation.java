@@ -25,7 +25,7 @@ public class Simulation{
         for(int i = 0; i < queue_size; i++) {
             String numberID = generateID();
             int mass = r.nextInt(2000) + 1000;
-            parking.getCarQueue().addCar(new Car(numberID, new Driver("Steve"), mass));
+            parking.getCarQueue().addCar(new ElectricCar(numberID, new Driver("Steve"), mass, 4000, 2500));
         }
 
         System.out.println();

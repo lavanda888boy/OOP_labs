@@ -97,7 +97,7 @@ public class Parking{
 
 
   private int findThePlaceForTheCar(List<ParkingPlace> places, Car car){
-    if(car instanceof Car){
+    if(!(car instanceof ElectricCar)  &&  !(car instanceof DisabilityCar)){
       for (ParkingPlace p : places) {
         if(!(p instanceof DisabilityParkingPlace)  &&  !(p instanceof ElectricParkingPlace)  &&  !p.getParkingPlaceState()){
           this.gate.open();
