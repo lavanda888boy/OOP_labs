@@ -6,6 +6,7 @@ public class Parking{
   private boolean workingState;
 
   private List<Level> levels;
+  private List<Car> cars;
   private Gate gate;
   private Elevator elevator;
   private PaymentTerminal paymentTerminal;
@@ -15,6 +16,7 @@ public class Parking{
   public Parking(Gate g, Elevator el, PaymentTerminal pt, ServiceManager sm, CarQueue cq){
     workingState = false;
     levels = new LinkedList<>();
+    cars = new LinkedList<>();
     gate = g;
     elevator = el;
     paymentTerminal = pt;
@@ -44,6 +46,10 @@ public class Parking{
 
   public List<Level> getLevels(){
     return this.levels;
+  }
+
+  public List<Car> getCars(){
+    return this.cars;
   }
 
   public Gate getGate(){
@@ -78,6 +84,7 @@ public class Parking{
         for(int i = 0; i < list.size(); i++){
             if(findThePlaceForTheCar(list, c) == 1){
               System.out.println("The "+ c.getClass().toString().substring(6) +" with id " + c.getID() + " is parked on the level " + l.getNumber());
+              this.cars.add(c);
               this.gate.close();
               return;
             }

@@ -52,6 +52,10 @@ public class Simulation{
         }
 
         parking.getServiceManager().supplyTheChargers(parking.getLevels());
+
+        System.out.println();
+        int carNumber = r.nextInt(parking.getCars().size());
+        parking.removeTheCar(parking.getCars().get(carNumber).getID());
     }
 
     private static String generateID(){
