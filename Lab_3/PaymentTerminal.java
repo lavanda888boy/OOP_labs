@@ -1,6 +1,6 @@
 public class PaymentTerminal{
 
-    public boolean workingState;
+    private boolean workingState;
 
     public PaymentTerminal(){
         this.workingState = false;
