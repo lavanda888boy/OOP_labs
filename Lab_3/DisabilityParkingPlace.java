@@ -9,5 +9,19 @@ public class DisabilityParkingPlace extends ParkingPlace{
         super.occupy(car);
         car.getDriver().setPaymentState(true);
         System.out.println("The driver does not have to pay fee");
+
+        DisabilityCar dc = (DisabilityCar) car;
+        dc.openRamp();
+        System.out.println("The driver with disabilities left the car");
+        dc.closeRamp();
+    }
+
+    @Override
+    public void free(){
+        super.free();
+        DisabilityCar dc = (DisabilityCar) this.getCar();
+        dc.openRamp();
+        System.out.println("The driver with disabilities got into the car");
+        dc.closeRamp();
     }
 }
