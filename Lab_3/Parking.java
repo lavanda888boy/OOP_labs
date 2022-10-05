@@ -82,15 +82,15 @@ public class Parking{
               return;
             }
         }  
-        System.out.println("The given car can not be parked on this level due to its type: " + c.getClass().toString().substring(6));          
-      } else{
+        System.out.println("The given car can not be parked on this level due to its type: " + c.getClass().toString().substring(6));   
+        
         if(index == levels.size() - 1){
           System.out.println("The " + c.getClass().toString().substring(6) + " with id " + c.getID() + " can not be parked");
         } else{
           if(!this.elevator.lift(levels.get(index + 1), c)){
             break;
           };
-        }
+        }       
       }
     }
   }

@@ -3,6 +3,8 @@ import java.lang.StringBuilder;
 
 public class Simulation{
     public static void main(String[] args) {
+
+        String[] names = {"Dan", "Steve", "Peter", "Andy", "Matthew", "Paul", "Robert", "Angelo"};
         
         Gate gate = new Gate();
         Elevator elevator = new Elevator(1500);
@@ -20,12 +22,26 @@ public class Simulation{
         
         
         Random r = new Random();
-        int queue_size = r.nextInt(10) + 1;
 
-        for(int i = 0; i < queue_size; i++) {
+        for(int i = 0; i < 2; i++) {
             String numberID = generateID();
             int mass = r.nextInt(2000) + 1000;
-            parking.getCarQueue().addCar(new ElectricCar(numberID, new Driver("Steve"), mass, 4000, 1000));
+            int name = r.nextInt(names.length);
+            parking.getCarQueue().addCar(new Car(numberID, new Driver(names[name]), mass));
+        }
+
+        for(int i = 0; i < 2; i++) {
+            String numberID = generateID();
+            int mass = r.nextInt(2000) + 1000;
+            int name = r.nextInt(names.length);
+            parking.getCarQueue().addCar(new ElectricCar(numberID, new Driver(names[name]), mass, 4000, 1000));
+        }
+
+        for(int i = 0; i < 2; i++) {
+            String numberID = generateID();
+            int mass = r.nextInt(2000) + 1000;
+            int name = r.nextInt(names.length);
+            parking.getCarQueue().addCar(new DisabilityCar(numberID, new Driver(names[name]), mass));
         }
 
         System.out.println();
