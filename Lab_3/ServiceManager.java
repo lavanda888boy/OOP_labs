@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class ServiceManager{
 
     private String name;
@@ -26,5 +28,19 @@ public class ServiceManager{
         } else{
             System.out.println("The parking is already closed");
         }
+    }
+
+    public void supplyTheChargers(List<Level> levels){
+        for (Level level : levels) {
+            List<ParkingPlace> places = level.getListOfParkingPlaces();
+            for (ParkingPlace p : places) {
+                if(p instanceof ElectricParkingPlace){
+                    ElectricParkingPlace ep = (ElectricParkingPlace) p;
+                    ep.fill();
+                    System.out.println("SM "+this.name+" filled one of the chargers up to "+(Math.round((double) (ep.getCurrentVolume()) / (double) (ep.getChargerCapacity()) * 100))+"%");
+                }
+            }
+        }
+        System.out.println("SM " + this.name + " supplied the chargers");
     }
 }

@@ -15,6 +15,14 @@ public class ElectricParkingPlace extends ParkingPlace{
         return this.chargerCapacity;
     }
 
+    public int getCurrentVolume(){
+        return this.currentVolume;
+    }
+
+    public void fill(){
+        this.currentVolume = this.chargerCapacity;
+    }
+
     @Override
     public void occupy(Car car){
         super.occupy(car);

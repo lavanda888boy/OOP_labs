@@ -15,7 +15,7 @@ public class Simulation{
         parking.getLevels().add(new Level(0, 3));
         parking.getLevels().add(new Level(1, 2));
 
-        serviceManager.openParking(parking);
+        parking.getServiceManager().openParking(parking);
         System.out.println();
         
         
@@ -34,6 +34,8 @@ public class Simulation{
             parking.parkTheCar();
             System.out.println();
         }
+
+        parking.getServiceManager().supplyTheChargers(parking.getLevels());
     }
 
     private static String generateID(){
