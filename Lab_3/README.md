@@ -15,3 +15,5 @@ The changes related to these classes were applied mainly to the `Parking` and `L
 
 Other members of the simulation remained the same with the dominating composition relationship
 among them and also some aggregation. 
+
+![alttext](https://github.com/lavanda888boy/OOP_labs_UTM/blob/main/Lab_3/class_diagram)
