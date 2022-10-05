@@ -18,10 +18,12 @@ public class DisabilityParkingPlace extends ParkingPlace{
 
     @Override
     public void free(){
-        super.free();
+        this.setParkingPlaceState(false);
         DisabilityCar dc = (DisabilityCar) this.getCar();
         dc.openRamp();
         System.out.println("The driver with disabilities got into the car");
         dc.closeRamp();
+
+        this.setCar(null);
     }
 }

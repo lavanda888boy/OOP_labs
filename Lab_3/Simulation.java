@@ -1,8 +1,9 @@
 import java.util.Random;
 import java.lang.StringBuilder;
+import java.util.concurrent.TimeUnit;
 
 public class Simulation{
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         String[] names = {"Dan", "Steve", "Peter", "Andy", "Matthew", "Paul", "Robert", "Angelo"};
         
@@ -18,6 +19,7 @@ public class Simulation{
         parking.getLevels().add(new Level(1, 2));
 
         parking.getServiceManager().openParking(parking);
+        TimeUnit.SECONDS.sleep(2);
         System.out.println();
         
         
@@ -47,14 +49,17 @@ public class Simulation{
         System.out.println();
 
         while(!parking.getCarQueue().isEmptyOfCars()){
+            TimeUnit.SECONDS.sleep(2);
             parking.parkTheCar();
             System.out.println();
         }
 
+        TimeUnit.SECONDS.sleep(2);
         parking.getServiceManager().supplyTheChargers(parking.getLevels());
-
         System.out.println();
-        int carNumber = r.nextInt(parking.getCars().size());
+
+        TimeUnit.SECONDS.sleep(2);
+        int carNumber = r.nextInt(parking.getCars().size() - 1);
         parking.removeTheCar(parking.getCars().get(carNumber).getID());
     }
 

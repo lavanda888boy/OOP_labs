@@ -16,7 +16,7 @@ public class CarQueue{
 
   public Car removeCar(){
     Car car = carQueue.remove();
-    System.out.println("The "+ car.getClass().toString().substring(6) +" with id " + car.getID() + " and mass " + car.getMass() + " kg left the queue");
+    System.out.println("The "+car.getClass().toString().substring(6)+" with id "+car.getID()+" and mass "+car.getMass()+" kg and driver "+car.getDriver().getName()+" left the queue");
     return car;
   }
 

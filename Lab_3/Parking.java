@@ -148,6 +148,7 @@ public class Parking{
         }
 
         this.gate.open();
+        this.cars.remove(pp.get(pos).getCar());
         pp.get(pos).free();
         System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
         this.gate.close();
