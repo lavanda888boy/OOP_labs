@@ -17,6 +17,10 @@ public class Elevator{
       return true;
     }
   }
+  
+  public boolean getWorkingState(){
+    return this.workingState;
+  }
 
   public void setWorkingState(boolean state){
     workingState = state;
