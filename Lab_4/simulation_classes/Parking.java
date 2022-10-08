@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 import java.util.List;
 
-public class Parking{
+public class Parking implements WorkingStateProcessing{
 
   private boolean workingState;
 
@@ -28,6 +28,7 @@ public class Parking{
     return this.workingState;
   }
 
+  @Override
   public void open(){
     this.workingState = true;
     this.paymentTerminal.setWorkingState(true);
@@ -36,6 +37,7 @@ public class Parking{
     System.out.println("The parking is opened");
   }
 
+  @Override
   public void close(){
     this.workingState = false;
     this.paymentTerminal.setWorkingState(false);

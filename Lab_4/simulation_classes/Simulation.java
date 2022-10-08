@@ -18,7 +18,7 @@ public class Simulation{
         parking.getLevels().add(new Level(0, 3));
         parking.getLevels().add(new Level(1, 2));
 
-        parking.getServiceManager().openParking(parking);
+        parking.getServiceManager().open(parking);
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
         
