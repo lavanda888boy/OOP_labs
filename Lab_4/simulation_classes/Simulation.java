@@ -16,15 +16,20 @@ public class Simulation{
 
         Parking parking = new Parking(gate, elevator, paymentTerminal, serviceManager, carQueue);
 
-        parking.getLevels().add(new Level(0, 3));
-        parking.getLevels().add(new Level(1, 2));
+        parking.getLevels().add(new Level(0, 2));
+        parking.getLevels().add(new Level(1, 3));
 
         parking.getServiceManager().open(parking);
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
+
+        System.out.println("INITIAL CAR ENETERED THE PARKING");
+        parking.getCarQueue().addCar(new Car(generateID(), new Driver("Collin"), 1500));
+        parking.parkTheCar();
+        System.out.println();
         
         //TODO: make the scenarios with text logs
-        String[] scenarios = {"Simple car", "Electric car with a charged battery", "Electric car with a low battery", "Disability car"};
+        String[] scenarios = {"Simple car with mass < 1500", "Simple car with mass >= 1500", "Electric car with a charged battery", "Electric car with a low battery", "Disability car"};
 
         System.out.println("Introduce one of the scenarios available:");
         for (int i = 1; i <= scenarios.length; i++) {
@@ -37,16 +42,19 @@ public class Simulation{
         Car car;
 
         switch(scenario){
-            case 1: 
+            case 1:
+                car = new Car(generateID(), new Driver("Chris"), 1000); 
+                break;
+            case 2: 
                 car = new Car(generateID(), new Driver("Andy"), 2500); 
                 break;
-            case 2:
+            case 3:
                 car = new ElectricCar(generateID(), new Driver("Sam"), 2000, 8000, 5000);
                 break;
-            case 3:
+            case 4:
                 car = new ElectricCar(generateID(), new Driver("Dave"), 3000, 8000, 3000);
                 break;
-            case 4:
+            case 5:
                 car = new DisabilityCar(generateID(), new Driver("Matthew"), 2000);
                 break;
             default:
@@ -59,7 +67,7 @@ public class Simulation{
 
         System.out.println();
         TimeUnit.SECONDS.sleep(2);
-        if(scenario == 3){
+        if(scenario == 4){
             parking.getServiceManager().supplyTheChargers(parking.getLevels());
         }
     }
