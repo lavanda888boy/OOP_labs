@@ -55,7 +55,7 @@ public class Level{
 
   public int getCarPosition(String id){
     for(int i = 0; i < listOfParkingPlaces.size(); i++){
-      if(listOfParkingPlaces.get(i).getCar().getID().compareTo(id) == 0){
+      if(listOfParkingPlaces.get(i).getCar() != null  &&  listOfParkingPlaces.get(i).getCar().getID().compareTo(id) == 0){
         return i;
       }
     }

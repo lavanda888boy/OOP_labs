@@ -1,9 +1,10 @@
 import java.util.Random;
 import java.lang.StringBuilder;
 import java.util.concurrent.TimeUnit;
+import java.util.Scanner;
 
 public class Simulation{
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, IllegalArgumentException {
 
         String[] names = {"Dan", "Steve", "Peter", "Andy", "Matthew", "Paul", "Robert", "Angelo"};
         
@@ -22,45 +23,45 @@ public class Simulation{
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
         
-        
-        Random r = new Random();
+        //TODO: make the scenarios with text logs
+        String[] scenarios = {"Simple car", "Electric car with a charged battery", "Electric car with a low battery", "Disability car"};
 
-        for(int i = 0; i < 2; i++) {
-            String numberID = generateID();
-            int mass = r.nextInt(2000) + 1000;
-            int name = r.nextInt(names.length);
-            parking.getCarQueue().addCar(new Car(numberID, new Driver(names[name]), mass));
+        System.out.println("Introduce one of the scenarios available:");
+        for (int i = 1; i <= scenarios.length; i++) {
+            System.out.println(i + " " + scenarios[i - 1] + " comes to the parking");
         }
+        System.out.println();
 
-        for(int i = 0; i < 2; i++) {
-            String numberID = generateID();
-            int mass = r.nextInt(2000) + 1000;
-            int name = r.nextInt(names.length);
-            parking.getCarQueue().addCar(new ElectricCar(numberID, new Driver(names[name]), mass, 4000, 1000));
-        }
+        Scanner scann = new Scanner(System.in);
+        int scenario = scann.nextInt();
+        Car car;
 
-        for(int i = 0; i < 2; i++) {
-            String numberID = generateID();
-            int mass = r.nextInt(2000) + 1000;
-            int name = r.nextInt(names.length);
-            parking.getCarQueue().addCar(new DisabilityCar(numberID, new Driver(names[name]), mass));
+        switch(scenario){
+            case 1: 
+                car = new Car(generateID(), new Driver("Andy"), 2500); 
+                break;
+            case 2:
+                car = new ElectricCar(generateID(), new Driver("Sam"), 2000, 8000, 5000);
+                break;
+            case 3:
+                car = new ElectricCar(generateID(), new Driver("Dave"), 3000, 8000, 3000);
+                break;
+            case 4:
+                car = new DisabilityCar(generateID(), new Driver("Matthew"), 2000);
+                break;
+            default:
+                throw new IllegalArgumentException("No such scenario available!");
         }
 
         System.out.println();
+        parking.getCarQueue().addCar(car);
+        proceedCar(car, parking);        
 
-        while(!parking.getCarQueue().isEmptyOfCars()){
-            TimeUnit.SECONDS.sleep(2);
-            parking.parkTheCar();
-            System.out.println();
-        }
-
-        TimeUnit.SECONDS.sleep(2);
-        parking.getServiceManager().supplyTheChargers(parking.getLevels());
         System.out.println();
-
         TimeUnit.SECONDS.sleep(2);
-        int carNumber = r.nextInt(parking.getCars().size() - 1);
-        parking.removeTheCar(parking.getCars().get(carNumber).getID());
+        if(scenario == 3){
+            parking.getServiceManager().supplyTheChargers(parking.getLevels());
+        }
     }
 
     private static String generateID(){
@@ -78,5 +79,12 @@ public class Simulation{
         sb.append(num);
 
         return sb.toString();
+    }
+
+    private static void proceedCar(Car car, Parking parking) throws InterruptedException{
+        parking.parkTheCar();
+        System.out.println();
+        TimeUnit.SECONDS.sleep(2);
+        parking.removeTheCar(car.getID());
     }
 }
