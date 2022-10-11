@@ -15,7 +15,7 @@ public class Level{
     listOfParkingPlaces = new ArrayList<>();
 
     for(int i = 0; i < 0.5 * capacity; i++){
-      ParkingPlace pp = new ParkingPlace();
+      ParkingPlace pp = new SimpleParkingPlace();
       listOfParkingPlaces.add(pp);
     }
 

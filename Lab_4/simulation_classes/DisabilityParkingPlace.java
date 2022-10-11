@@ -6,7 +6,8 @@ public class DisabilityParkingPlace extends ParkingPlace{
 
     @Override
     public void occupy(Car car){
-        super.occupy(car);
+        this.setCar(car);
+        this.setParkingPlaceState(true);
         car.getDriver().setPaymentState(true);
         System.out.println("The driver does not have to pay fee");
 

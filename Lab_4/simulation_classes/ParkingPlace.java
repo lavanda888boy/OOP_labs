@@ -1,4 +1,4 @@
-public class ParkingPlace{
+abstract class ParkingPlace{
 
   private Car car;
   private boolean occupied;
@@ -24,15 +24,8 @@ public class ParkingPlace{
     this.occupied = state;
   }
 
-  public void occupy(Car car){
-    this.car = car;
-    this.occupied = true;
-  }
+  abstract void occupy(Car car);
 
-  public void free(){
-    this.car = null;
-    this.occupied = false;
-    System.out.println("A parking place is free now");
-  }
+  abstract void free();
 
 }

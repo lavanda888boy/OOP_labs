@@ -25,8 +25,16 @@ public class ElectricParkingPlace extends ParkingPlace{
 
     @Override
     public void occupy(Car car){
-        super.occupy(car);
+        this.setCar(car);
+        this.setParkingPlaceState(true);
         chargeTheCar((ElectricCar) car);
+    }
+
+    @Override
+    public void free(){
+        this.setCar(null);
+        this.setParkingPlaceState(false);
+        System.out.println("An electric parking place is free now");
     }
 
     private void chargeTheCar(ElectricCar car){

@@ -28,24 +28,6 @@ public class Parking implements WorkingStateProcessing{
     return this.workingState;
   }
 
-  @Override
-  public void open(){
-    this.workingState = true;
-    this.paymentTerminal.setWorkingState(true);
-    this.elevator.setWorkingState(true);
-
-    System.out.println("The parking is opened");
-  }
-
-  @Override
-  public void close(){
-    this.workingState = false;
-    this.paymentTerminal.setWorkingState(false);
-    this.elevator.setWorkingState(false);
-
-    System.out.println("The parking is closed");
-  }
-
   public List<Level> getLevels(){
     return this.levels;
   }
@@ -73,6 +55,27 @@ public class Parking implements WorkingStateProcessing{
   public CarQueue getCarQueue(){
     return this.carQueue;
   }
+  
+
+  @Override
+  public void open(){
+    this.workingState = true;
+    this.paymentTerminal.setWorkingState(true);
+    this.elevator.setWorkingState(true);
+
+    System.out.println("The parking is opened");
+  }
+
+  @Override
+  public void close(){
+    this.workingState = false;
+    this.paymentTerminal.setWorkingState(false);
+    this.elevator.setWorkingState(false);
+
+    System.out.println("The parking is closed");
+  }
+
+  
 
   public void parkTheCar(){
     Car c = this.carQueue.removeCar();
@@ -104,11 +107,36 @@ public class Parking implements WorkingStateProcessing{
     }
   }
 
+  public void removeTheCar(String id){
+    for(Level level : levels){
+      int pos = level.getCarPosition(id);
+
+      if(pos != -1){
+        List<ParkingPlace> pp = level.getListOfParkingPlaces();
+
+        Driver d = pp.get(pos).getCar().getDriver();
+        if(!d.getPaymentState()){
+          System.out.println("The driver " + d.getName() + " has to pay the bill");
+          this.paymentTerminal.proceedPayment(d);
+        }
+
+        this.gate.open();
+        this.cars.remove(pp.get(pos).getCar());
+        pp.get(pos).free();
+        System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
+        this.gate.close();
+
+        return;
+      }
+    }
+    System.out.println("There is no such car on the parking");
+  }
+
 
   private int findThePlaceForTheCar(List<ParkingPlace> places, Car car){
     if(!(car instanceof ElectricCar)  &&  !(car instanceof DisabilityCar)){
       for (ParkingPlace p : places) {
-        if(!(p instanceof DisabilityParkingPlace)  &&  !(p instanceof ElectricParkingPlace)  &&  !p.getParkingPlaceState()){
+        if(p instanceof SimpleParkingPlace  &&  !p.getParkingPlaceState()){
           this.gate.open();
           p.occupy(car);
           return 1;
@@ -135,29 +163,4 @@ public class Parking implements WorkingStateProcessing{
     return 0;
   }
 
-
-  public void removeTheCar(String id){
-    for(Level level : levels){
-      int pos = level.getCarPosition(id);
-
-      if(pos != -1){
-        List<ParkingPlace> pp = level.getListOfParkingPlaces();
-
-        Driver d = pp.get(pos).getCar().getDriver();
-        if(!d.getPaymentState()){
-          System.out.println("The driver " + d.getName() + " has to pay the bill");
-          this.paymentTerminal.proceedPayment(d);
-        }
-
-        this.gate.open();
-        this.cars.remove(pp.get(pos).getCar());
-        pp.get(pos).free();
-        System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
-        this.gate.close();
-
-        return;
-      }
-    }
-    System.out.println("There is no such car on the parking");
-  }
 }
