@@ -23,12 +23,12 @@ public class Simulation{
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
 
-        System.out.println("INITIAL CAR ENETERED THE PARKING");
+        System.out.println("INITIAL CAR ENTERED THE PARKING");
         parking.getCarQueue().addCar(new Car(generateID(), new Driver("Collin"), 1500));
         parking.parkTheCar();
         System.out.println();
         
-        //TODO: make the scenarios with text logs
+
         String[] scenarios = {"Simple car with mass < 1500", "Simple car with mass >= 1500", "Electric car with a charged battery", "Electric car with a low battery", "Disability car"};
 
         System.out.println("Introduce one of the scenarios available:");
