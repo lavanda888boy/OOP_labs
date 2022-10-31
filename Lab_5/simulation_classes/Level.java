@@ -14,17 +14,17 @@ public class Level{
     this.capacity = capacity;
     listOfParkingPlaces = new ArrayList<>();
 
-    for(int i = 0; i < 0.5 * capacity; i++){
+    for(int i = 0; i < 0.85 * capacity; i++){
       ParkingPlace pp = new SimpleParkingPlace();
       listOfParkingPlaces.add(pp);
     }
 
-    for(int i = 0; i < 0.25 * capacity; i++){
+    for(int i = 0; i < 0.05 * capacity; i++){
       ParkingPlace dp = new DisabilityParkingPlace();
       listOfParkingPlaces.add(dp);
     }
 
-    for(int i = 0; i < 0.25 * capacity; i++){
+    for(int i = 0; i < 0.1 * capacity; i++){
       ParkingPlace ep = new ElectricParkingPlace(electricity);
       listOfParkingPlaces.add(ep);
     }
@@ -60,6 +60,38 @@ public class Level{
       }
     }
     return -1;
+  }
+
+  public void showAvailableParkingPlaces(){
+    int simple_counter = 0;
+    int electric_counter = 0;
+    int disability_counter = 0;
+
+    for(int i = (int) (0.85 * this.capacity) - 1; i >= 0; i--){
+      if(listOfParkingPlaces.get(i).getParkingPlaceState()){
+        break;
+      }
+      simple_counter++;
+    }
+
+    for(int i = this.capacity - 1; i > (int) (0.9 * this.capacity); i--){
+      if(listOfParkingPlaces.get(i).getParkingPlaceState()){
+        break;
+      }
+      electric_counter++;
+    }
+
+    for(int i = (int) (0.9 * this.capacity) - 1; i > (int) (0.85 * this.capacity); i--){
+      if(listOfParkingPlaces.get(i).getParkingPlaceState()){
+        break;
+      }
+      disability_counter++;
+    }
+
+    System.out.println("Free places on level " + this.getNumber() + ":");
+    System.out.println(simple_counter + " for simple cars");
+    System.out.println(electric_counter + " for electric cars");
+    System.out.println(disability_counter + " for disability cars");
   }
   
 }

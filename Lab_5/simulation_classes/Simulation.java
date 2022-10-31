@@ -15,7 +15,7 @@ public class Simulation{
 
         Parking parking = new Parking(gate, elevator, paymentTerminal, serviceManager, carQueue);
 
-        parking.getLevels().add(new Level(0, 15));
+        parking.getLevels().add(new Level(0, 20));
         parking.getLevels().add(new Level(1, 20));
         parking.getLevels().add(new Level(2, 20));
 
@@ -23,7 +23,11 @@ public class Simulation{
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
 
-        fillTheParkingWithArbitraryCars(names, parking);        
+        int magicalNumber = 30;
+        fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
+        
+        Level l = parking.getLevels().get(0);
+        l.showAvailableParkingPlaces();
     }
 
     private static String generateID(){
@@ -43,14 +47,14 @@ public class Simulation{
         return sb.toString();
     }
 
-    private static void fillTheParkingWithArbitraryCars(String[] names, Parking parking) throws InterruptedException{
+    private static void fillTheParkingWithArbitraryCars(String[] names, Parking parking, int n) throws InterruptedException{
         String id;
         Driver d;
         int mass;
 
         Random r_name = new Random();
         Random r_mass = new Random();
-        for (int i = 0; i < 55 * 0.85; i++) {
+        for (int i = 0; i < n * 0.85; i++) {
             id = generateID();
             d = new Driver(names[r_name.nextInt(names.length)]);
             mass = r_mass.nextInt(1000) + 1000;
@@ -61,7 +65,7 @@ public class Simulation{
         int capacity, volume;
 
         Random r_cv = new Random();
-        for (int i = 0; i < 55 * 0.1; i++) {
+        for (int i = 0; i < n * 0.1; i++) {
             id = generateID();
             d = new Driver(names[r_name.nextInt(names.length)]);
             mass = r_mass.nextInt(1000) + 1000;
@@ -70,7 +74,7 @@ public class Simulation{
             parking.getCarQueue().addCar(new ElectricCar(id, d, mass, capacity, volume));
         } 
 
-        for (int i = 0; i < 55 * 0.05; i++) {
+        for (int i = 0; i < n * 0.05; i++) {
             id = generateID();
             d = new Driver(names[r_name.nextInt(names.length)]);
             mass = r_mass.nextInt(1000) + 1000;
