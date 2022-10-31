@@ -23,8 +23,7 @@ public class Simulation{
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
 
-
-
+        fillTheParkingWithArbitraryCars(names, parking);        
     }
 
     private static String generateID(){
@@ -44,10 +43,46 @@ public class Simulation{
         return sb.toString();
     }
 
-    private static void proceedCar(Car car, Parking parking) throws InterruptedException{
-        parking.parkTheCar();
-        System.out.println();
+    private static void fillTheParkingWithArbitraryCars(String[] names, Parking parking) throws InterruptedException{
+        String id;
+        Driver d;
+        int mass;
+
+        Random r_name = new Random();
+        Random r_mass = new Random();
+        for (int i = 0; i < 55 * 0.85; i++) {
+            id = generateID();
+            d = new Driver(names[r_name.nextInt(names.length)]);
+            mass = r_mass.nextInt(1000) + 1000;
+
+            parking.getCarQueue().addCar(new Car(id, d, mass));
+        } 
+
+        int capacity, volume;
+
+        Random r_cv = new Random();
+        for (int i = 0; i < 55 * 0.1; i++) {
+            id = generateID();
+            d = new Driver(names[r_name.nextInt(names.length)]);
+            mass = r_mass.nextInt(1000) + 1000;
+            capacity = r_cv.nextInt(2000) + 4000;
+            volume = r_cv.nextInt(capacity);
+            parking.getCarQueue().addCar(new ElectricCar(id, d, mass, capacity, volume));
+        } 
+
+        for (int i = 0; i < 55 * 0.05; i++) {
+            id = generateID();
+            d = new Driver(names[r_name.nextInt(names.length)]);
+            mass = r_mass.nextInt(1000) + 1000;
+            parking.getCarQueue().addCar(new DisabilityCar(id, d, mass));
+        } 
+
         TimeUnit.SECONDS.sleep(2);
-        parking.removeTheCar(car.getID());
+
+        System.out.println();
+        while(!parking.getCarQueue().isEmptyOfCars()){
+            parking.parkTheCar();
+            System.out.println();
+        }
     }
 }

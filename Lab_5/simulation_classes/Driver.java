@@ -4,9 +4,9 @@ public class Driver{
   private int timeSpent;
   private boolean paymentState;
 
-  public Driver(String name, int timeSpent){
+  public Driver(String name){
     this.name = name;
-    this.timeSpent = timeSpent;
+    this.timeSpent = 0;
     this.paymentState = false;
   }
 
