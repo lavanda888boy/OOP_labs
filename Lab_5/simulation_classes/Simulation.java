@@ -26,8 +26,7 @@ public class Simulation{
         int magicalNumber = 30;
         fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
         
-        Level l = parking.getLevels().get(0);
-        l.showAvailableParkingPlaces();
+        //System.out.println(parking.getPaymentTerminal().getCashAmount());
     }
 
     private static String generateID(){
@@ -52,12 +51,12 @@ public class Simulation{
         Driver d;
         int mass;
 
-        Random r_name = new Random();
-        Random r_mass = new Random();
+        Random r = new Random();
         for (int i = 0; i < n * 0.85; i++) {
             id = generateID();
-            d = new Driver(names[r_name.nextInt(names.length)]);
-            mass = r_mass.nextInt(1000) + 1000;
+            d = new Driver(names[r.nextInt(names.length)]);
+            d.setTimeSpent(r.nextInt(70) + 10);
+            mass = r.nextInt(1000) + 1000;
 
             parking.getCarQueue().addCar(new Car(id, d, mass));
         } 
@@ -67,17 +66,21 @@ public class Simulation{
         Random r_cv = new Random();
         for (int i = 0; i < n * 0.1; i++) {
             id = generateID();
-            d = new Driver(names[r_name.nextInt(names.length)]);
-            mass = r_mass.nextInt(1000) + 1000;
+            d = new Driver(names[r.nextInt(names.length)]);
+            d.setTimeSpent(r.nextInt(70) + 10);
+            mass = r.nextInt(1000) + 1000;
             capacity = r_cv.nextInt(2000) + 4000;
             volume = r_cv.nextInt(capacity);
+
             parking.getCarQueue().addCar(new ElectricCar(id, d, mass, capacity, volume));
         } 
 
         for (int i = 0; i < n * 0.05; i++) {
             id = generateID();
-            d = new Driver(names[r_name.nextInt(names.length)]);
-            mass = r_mass.nextInt(1000) + 1000;
+            d = new Driver(names[r.nextInt(names.length)]);
+            d.setTimeSpent(r.nextInt(70) + 10);
+            mass = r.nextInt(1000) + 1000;
+
             parking.getCarQueue().addCar(new DisabilityCar(id, d, mass));
         } 
 

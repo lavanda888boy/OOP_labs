@@ -18,6 +18,10 @@ public class Driver{
     return this.timeSpent;
   }
 
+  public void setTimeSpent(int timeSpent){
+    this.timeSpent = timeSpent;
+  }
+
   public boolean getPaymentState(){
     return this.paymentState;
   }
