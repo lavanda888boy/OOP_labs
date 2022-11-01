@@ -2,7 +2,14 @@ import java.util.Random;
 import java.lang.StringBuilder;
 import java.util.concurrent.TimeUnit;
 
+
 public class Simulation{
+
+    public static final double simple_coef = 0.85;
+    public static final double electric_coef = 0.1;
+    public static final double disability_coef = 0.05;
+
+
     public static void main(String[] args) throws InterruptedException, IllegalArgumentException {
 
         String[] names = {"Dan", "Steve", "Peter", "Andy", "Matthew", "Paul", "Robert", "Angelo"};
@@ -27,6 +34,7 @@ public class Simulation{
         fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
         
         //System.out.println(parking.getPaymentTerminal().getCashAmount());
+        parking.getLevels().get(1).showAvailableParkingPlaces();
     }
 
     private static String generateID(){
@@ -52,7 +60,7 @@ public class Simulation{
         int mass;
 
         Random r = new Random();
-        for (int i = 0; i < n * 0.85; i++) {
+        for (int i = 0; i < n * simple_coef; i++) {
             id = generateID();
             d = new Driver(names[r.nextInt(names.length)]);
             d.setTimeSpent(r.nextInt(70) + 10);
@@ -64,7 +72,7 @@ public class Simulation{
         int capacity, volume;
 
         Random r_cv = new Random();
-        for (int i = 0; i < n * 0.1; i++) {
+        for (int i = 0; i < n * electric_coef; i++) {
             id = generateID();
             d = new Driver(names[r.nextInt(names.length)]);
             d.setTimeSpent(r.nextInt(70) + 10);
@@ -75,7 +83,7 @@ public class Simulation{
             parking.getCarQueue().addCar(new ElectricCar(id, d, mass, capacity, volume));
         } 
 
-        for (int i = 0; i < n * 0.05; i++) {
+        for (int i = 0; i < n * disability_coef; i++) {
             id = generateID();
             d = new Driver(names[r.nextInt(names.length)]);
             d.setTimeSpent(r.nextInt(70) + 10);
