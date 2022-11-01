@@ -31,15 +31,13 @@ public class Simulation{
         System.out.println();
 
         int magicalNumber = 30;
-        fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
+        //fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
         
-        //System.out.println(parking.getPaymentTerminal().getCashAmount());
-        parking.getLevels().get(1).showAvailableParkingPlaces();
     }
 
-    private static String generateID(){
+    
+    private static String generateID(Random r){
         StringBuilder sb = new StringBuilder();
-        Random r = new Random();
 
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         for(int i = 0; i < 3; i++){
@@ -54,42 +52,83 @@ public class Simulation{
         return sb.toString();
     }
 
+
+    private static String generateName(Random r, String[] names){
+        String name = "";
+
+        int index = r.nextInt(names.length);
+        name = names[index];
+
+        return name;
+    }
+
+
+    private static int generateMass(Random r){
+        int mass = r.nextInt(1000) + 1000;
+        return mass;
+    }
+
+
+    private static int generateCapacity(Random r){
+        return r.nextInt(2000) + 4000;
+    }
+
+
+    private static int generateVolume(Random r, int capacity){
+        return r.nextInt(capacity);
+    }
+
+
+
+    private static Car generateRandomCar(String[] names){
+        Random r = new Random();
+        Car car;
+        String id = generateID(r);
+        String name = generateName(r, names);
+        int mass = generateMass(r);
+
+        int choice = r.nextInt(100) + 1;
+
+        if(choice <= (int) (simple_coef * 100)){
+            car = new Car(id, new Driver(name), mass);
+        } else if(choice > (int) (simple_coef * 100)  &&  choice <= (int) (electric_coef * 100)){
+            int capacity = generateCapacity(r);
+            car = new ElectricCar(id, new Driver(name), mass, capacity, generateVolume(r, capacity));
+        } else{
+            car = new DisabilityCar(id, new Driver(name), mass);
+        }
+
+        return car;
+    }
+
+
     private static void fillTheParkingWithArbitraryCars(String[] names, Parking parking, int n) throws InterruptedException{
-        String id;
         Driver d;
-        int mass;
 
         Random r = new Random();
-        for (int i = 0; i < n * simple_coef; i++) {
-            id = generateID();
-            d = new Driver(names[r.nextInt(names.length)]);
-            d.setTimeSpent(r.nextInt(70) + 10);
-            mass = r.nextInt(1000) + 1000;
 
-            parking.getCarQueue().addCar(new Car(id, d, mass));
+        for (int i = 0; i < n * simple_coef; i++) {
+            d = new Driver(generateName(r, names));
+            d.setTimeSpent(r.nextInt(70) + 10);
+
+            parking.getCarQueue().addCar(new Car(generateID(r), d, generateMass(r)));
         } 
 
-        int capacity, volume;
-
-        Random r_cv = new Random();
+        int capacity;
         for (int i = 0; i < n * electric_coef; i++) {
-            id = generateID();
-            d = new Driver(names[r.nextInt(names.length)]);
+            d = new Driver(generateName(r, names));
             d.setTimeSpent(r.nextInt(70) + 10);
-            mass = r.nextInt(1000) + 1000;
-            capacity = r_cv.nextInt(2000) + 4000;
-            volume = r_cv.nextInt(capacity);
 
-            parking.getCarQueue().addCar(new ElectricCar(id, d, mass, capacity, volume));
+            capacity = generateCapacity(r);
+
+            parking.getCarQueue().addCar(new ElectricCar(generateID(r), d, generateMass(r), capacity, generateVolume(r, capacity)));
         } 
 
         for (int i = 0; i < n * disability_coef; i++) {
-            id = generateID();
-            d = new Driver(names[r.nextInt(names.length)]);
+            d = new Driver(generateName(r, names));
             d.setTimeSpent(r.nextInt(70) + 10);
-            mass = r.nextInt(1000) + 1000;
 
-            parking.getCarQueue().addCar(new DisabilityCar(id, d, mass));
+            parking.getCarQueue().addCar(new DisabilityCar(generateID(r), d, generateMass(r)));
         } 
 
         TimeUnit.SECONDS.sleep(2);
