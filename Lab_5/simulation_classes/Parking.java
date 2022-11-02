@@ -97,7 +97,7 @@ public class Parking implements WorkingStateProcessing{
         }     
         
         if(index == levels.size() - 1){
-          System.out.println("The " + c.getClass().toString().substring(6) + " with id " + c.getID() + " can not be parked");
+          return 0;
         } else{
           if(!this.elevator.lift(levels.get(index + 1), c)){
             break;
@@ -131,6 +131,7 @@ public class Parking implements WorkingStateProcessing{
         this.cars.remove(pp.get(pos).getCar());
         pp.get(pos).free();
         System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
+        System.out.println("The driver spent on the parking "+c.getDriver().getTimeSpent()+" minutes");
         this.gate.close();
 
         return c;

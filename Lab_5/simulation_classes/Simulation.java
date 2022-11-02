@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 public class Simulation{
 
     public static final int levelCount = 3;
-    public static final int levelCapacity = 5;
+    public static final int levelCapacity = 2;
 
     public static final double simple_coef = 0.85;
     public static final double electric_coef = 0.1;
@@ -39,8 +39,7 @@ public class Simulation{
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
 
-        //int magicalNumber = 30;
-        //fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
+        fillTheParkingWithArbitraryCars(names, parking, levelCapacity/2);     
         
         Car newCar = generateRandomCar(names);
         parking.getCarQueue().addCar(newCar);
@@ -63,6 +62,9 @@ public class Simulation{
                 if(parking.parkTheCar() == 1){
                     parking.getCarQueue().removeCar();
                 }
+                System.out.println("\n");
+                System.out.println("Car with id "+parking.getCarQueue().getFirstCar().getID()+" is waiting");
+                System.out.println();
             } else{
                 if(parking.getCars().size() != 0){
                     leavingCar = parking.removeTheCar();
@@ -73,6 +75,7 @@ public class Simulation{
                         TimeUnit.MILLISECONDS.sleep(1000);
                     }
                     TimeUnit.MILLISECONDS.sleep(1000);
+                    System.out.println("\n");
                     System.out.println("Current cash amount is: "+parking.getPaymentTerminal().getCashAmount()+"$");
                     System.out.println();
                 }

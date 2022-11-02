@@ -37,7 +37,6 @@ public class ServiceManager{
                 if(p instanceof ElectricParkingPlace){
                     ElectricParkingPlace ep = (ElectricParkingPlace) p;
                     ep.fill();
-                    System.out.println("SM "+this.name+" filled one of the chargers up to "+(Math.round((double) (ep.getCurrentVolume()) / (double) (ep.getChargerCapacity()) * 100))+"%");
                 }
             }
         }
