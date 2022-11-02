@@ -6,17 +6,17 @@ import java.util.concurrent.TimeUnit;
 public class Simulation{
 
     public static final int levelCount = 3;
-    public static final int levelCapacity = 2;
+    public static final int levelCapacity = 10;
 
-    public static final double simple_coef = 0.85;
-    public static final double electric_coef = 0.1;
+    public static final double simple_coef = 0.9;
+    public static final double electric_coef = 0.05;
     public static final double disability_coef = 0.05;
 
-    public static double incomePercent = 0.7;
+    public static double incomePercent = 0.6;
 
     public static final int controlNumber = 1500;
 
-    public static final int averageTime = 60;
+    public static final int averageTime = 80;
 
 
     public static void main(String[] args) throws InterruptedException, IllegalArgumentException {
@@ -88,7 +88,8 @@ public class Simulation{
 
 
     private static void validateCarMovement(Parking parking){
-        if(parking.getCarQueue().getNumberOfCarsInTheQueue() > parking.getLevels().get(0).getCapacity()){
+        if(parking.getCarQueue().getNumberOfCarsInTheQueue() > parking.getLevels().get(0).getCapacity()
+            || parking.getCarQueue().getNumberOfCarsInTheQueue() < parking.getLevels().get(0).getCapacity()/4){
             incomePercent = 1 - incomePercent;
         }
     }
