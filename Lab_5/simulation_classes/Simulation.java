@@ -9,6 +9,11 @@ public class Simulation{
     public static final double electric_coef = 0.1;
     public static final double disability_coef = 0.05;
 
+    public static final int incomeNumber = 1500;
+    public static final int outcomeNumber = 2000;
+
+    public static final int averageTime = 60;
+
 
     public static void main(String[] args) throws InterruptedException, IllegalArgumentException {
 
@@ -33,6 +38,29 @@ public class Simulation{
         int magicalNumber = 30;
         //fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
         
+        Car newCar = generateRandomCar(names);
+        parking.getCarQueue().addCar(newCar);
+
+        Random r = new Random();
+
+        while(true){
+            Car addableCar = generateRandomCar(names);
+            System.out.println(addableCar.getDriver().getTimeSpent());
+            parking.getCarQueue().addCar(addableCar);
+            System.out.println("\n");
+
+            TimeUnit.MILLISECONDS.sleep(r.nextInt(incomeNumber) + 2000);
+            parking.parkTheCar();
+            System.out.println("\n");
+
+            TimeUnit.MILLISECONDS.sleep(r.nextInt(outcomeNumber) + 2000);
+            parking.removeTheCar();
+            System.out.println("\n");
+
+            TimeUnit.MILLISECONDS.sleep(1000);
+            System.out.println("Current cash amount is: "+parking.getPaymentTerminal().getCashAmount()+"$");
+            TimeUnit.MILLISECONDS.sleep(1000);
+        }
     }
 
     
@@ -62,6 +90,10 @@ public class Simulation{
         return name;
     }
 
+    private static int generateTimeSpent(Random r){
+        return r.nextInt(averageTime) + 10;
+    }
+
 
     private static int generateMass(Random r){
         int mass = r.nextInt(1000) + 1000;
@@ -82,20 +114,22 @@ public class Simulation{
 
     private static Car generateRandomCar(String[] names){
         Random r = new Random();
+
         Car car;
         String id = generateID(r);
         String name = generateName(r, names);
+        int time = generateTimeSpent(r);
         int mass = generateMass(r);
 
         int choice = r.nextInt(100) + 1;
 
         if(choice <= (int) (simple_coef * 100)){
-            car = new Car(id, new Driver(name), mass);
+            car = new Car(id, new Driver(name, time), mass);
         } else if(choice > (int) (simple_coef * 100)  &&  choice <= (int) (electric_coef * 100)){
             int capacity = generateCapacity(r);
-            car = new ElectricCar(id, new Driver(name), mass, capacity, generateVolume(r, capacity));
+            car = new ElectricCar(id, new Driver(name, time), mass, capacity, generateVolume(r, capacity));
         } else{
-            car = new DisabilityCar(id, new Driver(name), mass);
+            car = new DisabilityCar(id, new Driver(name, time), mass);
         }
 
         return car;
@@ -108,25 +142,20 @@ public class Simulation{
         Random r = new Random();
 
         for (int i = 0; i < n * simple_coef; i++) {
-            d = new Driver(generateName(r, names));
-            d.setTimeSpent(r.nextInt(70) + 10);
-
+            d = new Driver(generateName(r, names), generateTimeSpent(r));
             parking.getCarQueue().addCar(new Car(generateID(r), d, generateMass(r)));
         } 
 
         int capacity;
         for (int i = 0; i < n * electric_coef; i++) {
-            d = new Driver(generateName(r, names));
-            d.setTimeSpent(r.nextInt(70) + 10);
-
+            d = new Driver(generateName(r, names), generateTimeSpent(r));
             capacity = generateCapacity(r);
 
             parking.getCarQueue().addCar(new ElectricCar(generateID(r), d, generateMass(r), capacity, generateVolume(r, capacity)));
         } 
 
         for (int i = 0; i < n * disability_coef; i++) {
-            d = new Driver(generateName(r, names));
-            d.setTimeSpent(r.nextInt(70) + 10);
+            d = new Driver(generateName(r, names), generateTimeSpent(r));
 
             parking.getCarQueue().addCar(new DisabilityCar(generateID(r), d, generateMass(r)));
         } 

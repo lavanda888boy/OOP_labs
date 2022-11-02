@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 public class Parking implements WorkingStateProcessing{
 
@@ -107,7 +108,11 @@ public class Parking implements WorkingStateProcessing{
     }
   }
 
-  public void removeTheCar(String id){
+  public void removeTheCar(){
+    Random r = new Random();
+    int index = r.nextInt(this.cars.size());
+    String id = this.cars.get(index).getID();
+
     for(Level level : levels){
       int pos = level.getCarPosition(id);
 
