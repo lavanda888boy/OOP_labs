@@ -2,7 +2,7 @@
 
 At the final stage of developing my simulation I made it autonomous by introducing different setup parameters into the `Simulation` class.
 They include the maximum capacity of a parking level, the percentage of different types of parking places, the chances of appearing for a certain type of car etc.
-I also added the concept of handling the waiting cars which cannot be parked at the tmoment and have to wait until there is a free parking place for them.
+I also added the concept of handling the waiting cars which cannot be parked at the moment and have to wait until there is a free parking place for them (if there are too many cars waiting then the income flow is decreased or increased otherwise; at the beginning more cars are entering the parking than leaving it).
 Moreover, the simulation calculates total amount of money collected by the parking. I used it as the main parameter for the further analysis.
 
 The `PaymentTerminal` class handles all the cash cases; depending on the time the driver spends at the parking he has to pay a certain amount of cash. I assumed it to be 5$ for 15-60 minutes staying and 15$ for more than one hour of time. 
