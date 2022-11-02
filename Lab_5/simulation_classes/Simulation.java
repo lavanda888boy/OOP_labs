@@ -28,9 +28,9 @@ public class Simulation{
 
         Parking parking = new Parking(gate, elevator, paymentTerminal, serviceManager, carQueue);
 
-        parking.getLevels().add(new Level(0, 20));
-        parking.getLevels().add(new Level(1, 20));
-        parking.getLevels().add(new Level(2, 20));
+        parking.getLevels().add(new Level(0, 2));
+        parking.getLevels().add(new Level(1, 2));
+        parking.getLevels().add(new Level(2, 2));
 
         parking.getServiceManager().open(parking);
         TimeUnit.SECONDS.sleep(2);
@@ -50,13 +50,15 @@ public class Simulation{
             validateCarMovement(parking);
 
             Car addableCar = generateRandomCar(names);
-            parking.getCarQueue().addCar(addableCar);
-            System.out.println("\n");
 
             entranceTime = r.nextInt(100) + 1;
             TimeUnit.MILLISECONDS.sleep(r.nextInt(controlNumber) + 2000);
             if(entranceTime <= incomePercent * 100){
-                parking.parkTheCar();           
+                parking.getCarQueue().addCar(addableCar);
+                System.out.println("\n");
+                if(parking.parkTheCar() == 1){
+                    parking.getCarQueue().removeCar();
+                }
             } else{
                 if(parking.getCars().size() != 0){
                     parking.removeTheCar();
@@ -181,6 +183,7 @@ public class Simulation{
         System.out.println();
         while(!parking.getCarQueue().isEmptyOfCars()){
             parking.parkTheCar();
+            parking.getCarQueue().removeCar();
             System.out.println();
         }
     }

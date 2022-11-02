@@ -20,12 +20,15 @@ public class CarQueue{
     return car;
   }
 
+  public Car getFirstCar(){
+    return this.carQueue.peek();
+  }
+
   public boolean isEmptyOfCars(){
     return carQueue.isEmpty();
   }
 
   public int getNumberOfCarsInTheQueue(){
-    System.out.println("There are " + carQueue.size() + " cars in the queue now");
     return carQueue.size();
   }
 }

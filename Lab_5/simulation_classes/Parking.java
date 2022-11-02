@@ -78,8 +78,8 @@ public class Parking implements WorkingStateProcessing{
 
   
 
-  public void parkTheCar(){
-    Car c = this.carQueue.removeCar();
+  public int parkTheCar(){
+    Car c = this.carQueue.getFirstCar();
 
     for(int index = 0; index < this.levels.size(); index++){
       Level l = levels.get(index);
@@ -92,10 +92,9 @@ public class Parking implements WorkingStateProcessing{
               System.out.println("The "+ c.getClass().toString().substring(6) +" with id " + c.getID() + " is parked on the level " + l.getNumber());
               this.cars.add(c);
               this.gate.close();
-              return;
+              return 1;
             }
-        }  
-        System.out.println("The given car can not be parked on this level due to its type: " + c.getClass().toString().substring(6));   
+        }     
         
         if(index == levels.size() - 1){
           System.out.println("The " + c.getClass().toString().substring(6) + " with id " + c.getID() + " can not be parked");
@@ -106,6 +105,7 @@ public class Parking implements WorkingStateProcessing{
         }       
       }
     }
+    return 0;
   }
 
   public void removeTheCar(){
