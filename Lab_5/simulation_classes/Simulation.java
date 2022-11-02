@@ -9,8 +9,9 @@ public class Simulation{
     public static final double electric_coef = 0.1;
     public static final double disability_coef = 0.05;
 
-    public static final int incomeNumber = 1500;
-    public static final int outcomeNumber = 2000;
+    public static final double incomePercent = 0.7;
+
+    public static final int controlNumber = 1500;
 
     public static final int averageTime = 60;
 
@@ -35,30 +36,35 @@ public class Simulation{
         TimeUnit.SECONDS.sleep(2);
         System.out.println();
 
-        int magicalNumber = 30;
+        //int magicalNumber = 30;
         //fillTheParkingWithArbitraryCars(names, parking, magicalNumber);     
         
         Car newCar = generateRandomCar(names);
         parking.getCarQueue().addCar(newCar);
 
         Random r = new Random();
+        int entranceTime;
 
         while(true){
             Car addableCar = generateRandomCar(names);
-            System.out.println(addableCar.getDriver().getTimeSpent());
             parking.getCarQueue().addCar(addableCar);
             System.out.println("\n");
 
-            TimeUnit.MILLISECONDS.sleep(r.nextInt(incomeNumber) + 2000);
-            parking.parkTheCar();
-            System.out.println("\n");
-
-            TimeUnit.MILLISECONDS.sleep(r.nextInt(outcomeNumber) + 2000);
-            parking.removeTheCar();
+            entranceTime = r.nextInt(100) + 1;
+            TimeUnit.MILLISECONDS.sleep(r.nextInt(controlNumber) + 2000);
+            if(entranceTime <= incomePercent * 100){
+                parking.parkTheCar();           
+            } else{
+                if(parking.getCars().size() != 0){
+                    parking.removeTheCar();
+                }
+            }
+            
             System.out.println("\n");
 
             TimeUnit.MILLISECONDS.sleep(1000);
             System.out.println("Current cash amount is: "+parking.getPaymentTerminal().getCashAmount()+"$");
+            System.out.println();
             TimeUnit.MILLISECONDS.sleep(1000);
         }
     }
