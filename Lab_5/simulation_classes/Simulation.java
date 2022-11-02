@@ -5,6 +5,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Simulation{
 
+    public static final int levelCount = 3;
+    public static final int levelCapacity = 5;
+
     public static final double simple_coef = 0.85;
     public static final double electric_coef = 0.1;
     public static final double disability_coef = 0.05;
@@ -28,9 +31,9 @@ public class Simulation{
 
         Parking parking = new Parking(gate, elevator, paymentTerminal, serviceManager, carQueue);
 
-        parking.getLevels().add(new Level(0, 2));
-        parking.getLevels().add(new Level(1, 2));
-        parking.getLevels().add(new Level(2, 2));
+        for (int i = 0; i < levelCount; i++) {
+            parking.getLevels().add(new Level(i, levelCapacity));
+        }
 
         parking.getServiceManager().open(parking);
         TimeUnit.SECONDS.sleep(2);
