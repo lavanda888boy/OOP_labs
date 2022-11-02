@@ -50,6 +50,7 @@ public class Simulation{
             validateCarMovement(parking);
 
             Car addableCar = generateRandomCar(names);
+            Car leavingCar;
 
             entranceTime = r.nextInt(100) + 1;
             TimeUnit.MILLISECONDS.sleep(r.nextInt(controlNumber) + 2000);
@@ -61,15 +62,20 @@ public class Simulation{
                 }
             } else{
                 if(parking.getCars().size() != 0){
-                    parking.removeTheCar();
+                    leavingCar = parking.removeTheCar();
+                    if(leavingCar instanceof ElectricCar){
+                        System.out.println("\n");
+                        TimeUnit.MILLISECONDS.sleep(1000);
+                        parking.getServiceManager().supplyTheChargers(parking.getLevels());
+                        TimeUnit.MILLISECONDS.sleep(1000);
+                    }
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                    System.out.println("Current cash amount is: "+parking.getPaymentTerminal().getCashAmount()+"$");
+                    System.out.println();
                 }
             }
             
             System.out.println("\n");
-
-            TimeUnit.MILLISECONDS.sleep(1000);
-            System.out.println("Current cash amount is: "+parking.getPaymentTerminal().getCashAmount()+"$");
-            System.out.println();
             TimeUnit.MILLISECONDS.sleep(1000);
         }
     }

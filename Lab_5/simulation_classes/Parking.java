@@ -108,11 +108,12 @@ public class Parking implements WorkingStateProcessing{
     return 0;
   }
 
-  public void removeTheCar(){
+  public Car removeTheCar(){
     Random r = new Random();
 
     int index = r.nextInt(this.cars.size());
-    String id = this.cars.get(index).getID();
+    Car c = this.cars.get(index);
+    String id = c.getID();
 
     for(Level level : levels){
       int pos = level.getCarPosition(id);
@@ -132,10 +133,11 @@ public class Parking implements WorkingStateProcessing{
         System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
         this.gate.close();
 
-        return;
+        return c;
       }
     }
     System.out.println("There is no such car on the parking");
+    return null;
   }
 
 
