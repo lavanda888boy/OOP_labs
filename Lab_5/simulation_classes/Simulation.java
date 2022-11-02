@@ -9,7 +9,7 @@ public class Simulation{
     public static final double electric_coef = 0.1;
     public static final double disability_coef = 0.05;
 
-    public static final double incomePercent = 0.7;
+    public static double incomePercent = 0.7;
 
     public static final int controlNumber = 1500;
 
@@ -46,6 +46,9 @@ public class Simulation{
         int entranceTime;
 
         while(true){
+            
+            validateCarMovement(parking);
+
             Car addableCar = generateRandomCar(names);
             parking.getCarQueue().addCar(addableCar);
             System.out.println("\n");
@@ -66,6 +69,13 @@ public class Simulation{
             System.out.println("Current cash amount is: "+parking.getPaymentTerminal().getCashAmount()+"$");
             System.out.println();
             TimeUnit.MILLISECONDS.sleep(1000);
+        }
+    }
+
+
+    private static void validateCarMovement(Parking parking){
+        if(parking.getCarQueue().getNumberOfCarsInTheQueue() > parking.getLevels().get(0).getCapacity()){
+            incomePercent = 1 - incomePercent;
         }
     }
 
