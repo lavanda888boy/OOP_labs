@@ -10,4 +10,8 @@ public class DisabilityCar extends Car {
         super(id, driver, mass);
         this.rampState = false;
     }
+
+    public void setRampState(boolean rampState){
+        this.rampState = rampState;
+    }
 }
