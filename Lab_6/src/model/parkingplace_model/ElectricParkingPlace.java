@@ -19,4 +19,7 @@ public class ElectricParkingPlace extends ParkingPlace {
         return this.currentVolume;
     }
 
+    public void setCurrentVolume(int volume){
+        currentVolume = volume;
+    }
 }

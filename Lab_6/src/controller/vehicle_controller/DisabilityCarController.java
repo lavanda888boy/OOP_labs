@@ -13,6 +13,10 @@ public class DisabilityCarController {
         this.disabilityCarView = disabilityCarView;
     }
 
+    public void setDisabilityCar(DisabilityCar disabilityCar){
+        this.disabilityCar = disabilityCar;
+    }
+
     public void openRamp(){
         disabilityCar.setRampState(true);
         disabilityCarView.printOpenRamp(disabilityCar.getID());
