@@ -51,13 +51,4 @@ public class Level {
     public List<ParkingPlace> getListOfParkingPlaces() {
         return listOfParkingPlaces;
     }
-
-    public boolean isFull() {
-        for (int i = 0; i < listOfParkingPlaces.size(); i++) {
-            if (!listOfParkingPlaces.get(i).getParkingPlaceState()) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

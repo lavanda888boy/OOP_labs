@@ -7,7 +7,6 @@ import model.parkingplace_model.DisabilityParkingPlace;
 import model.vehicle_model.Car;
 import model.vehicle_model.DisabilityCar;
 import view.driver_view.DriverView;
-import view.parkingplace_view.DisabilityParkingPlaceView;
 import view.vehicle_view.DisabilityCarView;
 
 public class DisabilityParkingPlaceController implements ParkingPlaceInterface  {
@@ -19,12 +18,9 @@ public class DisabilityParkingPlaceController implements ParkingPlaceInterface  
     private DisabilityCarController disabilityCarController = new DisabilityCarController(null, disabilityCarView); 
 
     private DisabilityParkingPlace disabilityParkingPlace;
-    private DisabilityParkingPlaceView disabilityParkingPlaceView;
 
-    public DisabilityParkingPlaceController(DisabilityParkingPlace disabilityParkingPlace,
-                                                DisabilityParkingPlaceView disabilityParkingPlaceView){
+    public DisabilityParkingPlaceController(DisabilityParkingPlace disabilityParkingPlace){
         this.disabilityParkingPlace = disabilityParkingPlace;
-        this.disabilityParkingPlaceView = disabilityParkingPlaceView;
     }
 
     @Override

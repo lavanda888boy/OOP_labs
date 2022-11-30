@@ -6,6 +6,10 @@ public class DriverView {
         System.out.println("The driver does not have to pay fee");
     }
 
+    public void showDriverPaid(String name){
+        System.out.println("The driver " + name + " paid the fee");
+    }
+
     public void showDisabilityDriverLeftCar(){
         System.out.println("The driver with disabilities left the car");
     }
