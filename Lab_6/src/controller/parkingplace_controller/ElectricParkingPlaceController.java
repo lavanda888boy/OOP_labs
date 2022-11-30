@@ -20,6 +20,11 @@ public class ElectricParkingPlaceController implements ParkingPlaceInterface  {
         this.electricParkingPlaceView = electricParkingPlaceView;
     }
 
+    public void setParkingPlace(ElectricParkingPlace place){
+        this.electricParkingPlace = place;
+    }
+
+
     public void fillCharger(){
         electricParkingPlace.setCurrentVolume(electricParkingPlace.getChargerCapacity());
     }

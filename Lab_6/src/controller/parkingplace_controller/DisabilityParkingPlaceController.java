@@ -23,6 +23,11 @@ public class DisabilityParkingPlaceController implements ParkingPlaceInterface  
         this.disabilityParkingPlace = disabilityParkingPlace;
     }
 
+    public void setParkingPlace(DisabilityParkingPlace place){
+        this.disabilityParkingPlace = place;
+    }
+
+
     @Override
     public void occupy(Car car){
         disabilityParkingPlace.setCar(car);

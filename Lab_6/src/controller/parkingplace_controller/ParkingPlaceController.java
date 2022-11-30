@@ -15,6 +15,10 @@ public class ParkingPlaceController implements ParkingPlaceInterface {
         this.parkingPlaceView = parkingPlaceView;
     }
 
+    public void setParkingPlace(ParkingPlace place){
+        this.parkingPlace = place;
+    }
+
     @Override
     public void occupy(Car car){
         parkingPlace.setCar(car);
