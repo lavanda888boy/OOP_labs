@@ -6,30 +6,30 @@ import model.vehicle_model.Car;
 import view.supply_view.ElevatorView;
 
 public class ElevatorController {
-    
+
     private Elevator elevator;
     private ElevatorView elevatorView;
 
-    public ElevatorController(Elevator elevator, ElevatorView elevatorView){
+    public ElevatorController(Elevator elevator, ElevatorView elevatorView) {
         this.elevator = elevator;
         this.elevatorView = elevatorView;
     }
 
-    public void setElevatorWorkingState(boolean workingState){
+    public void setElevatorWorkingState(boolean workingState) {
         elevator.setWorkingState(workingState);
-        
-        if(workingState == true){
+
+        if (workingState == true) {
             elevatorView.printElevatorTurnedOn();
-        } else{
+        } else {
             elevatorView.printElevatorTurnedOff();
         }
     }
 
-    public boolean liftCar(Level l, Car c){
-        if(elevator.getMaxWeight() < c.getMass()){
+    public boolean liftCar(Level l, Car c) {
+        if (elevator.getMaxWeight() < c.getMass()) {
             elevatorView.printNoMovementForCarToAnotherLevel();
             return false;
-        } else{
+        } else {
             elevatorView.printCarMovedToAnotherLevel(l.getNumber());
             return true;
         }

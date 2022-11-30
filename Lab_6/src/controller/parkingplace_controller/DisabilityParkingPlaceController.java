@@ -9,35 +9,36 @@ import model.vehicle_model.DisabilityCar;
 import view.driver_view.DriverView;
 import view.vehicle_view.DisabilityCarView;
 
-public class DisabilityParkingPlaceController implements ParkingPlaceInterface  {
+public class DisabilityParkingPlaceController implements ParkingPlaceInterface {
 
     private DriverView driverView = new DriverView();
-    private DriverController driverController = new DriverController(null, driverView); 
+    private DriverController driverController = new DriverController(null, driverView);
 
     private DisabilityCarView disabilityCarView = new DisabilityCarView();
-    private DisabilityCarController disabilityCarController = new DisabilityCarController(null, disabilityCarView); 
+    private DisabilityCarController disabilityCarController = new DisabilityCarController(null, disabilityCarView);
 
     private DisabilityParkingPlace disabilityParkingPlace;
 
-    public DisabilityParkingPlaceController(DisabilityParkingPlace disabilityParkingPlace){
+    public DisabilityParkingPlaceController(DisabilityParkingPlace disabilityParkingPlace) {
         this.disabilityParkingPlace = disabilityParkingPlace;
     }
 
-    public void setParkingPlace(DisabilityParkingPlace place){
+    public void setParkingPlace(DisabilityParkingPlace place) {
         this.disabilityParkingPlace = place;
     }
 
-
     @Override
-    public void occupy(Car car){
+    public void occupy(Car car) {
         disabilityParkingPlace.setCar(car);
         disabilityParkingPlace.setParkingPlaceState(true);
 
-        driverController.setDriver(car.getDriver());;
+        driverController.setDriver(car.getDriver());
+        ;
         driverController.setDriverPaymentState(false);
 
         DisabilityCar dc = (DisabilityCar) car;
-        disabilityCarController.setDisabilityCar(dc);;
+        disabilityCarController.setDisabilityCar(dc);
+        ;
 
         disabilityCarController.openRamp();
         driverView.showDisabilityDriverLeftCar();
@@ -45,9 +46,9 @@ public class DisabilityParkingPlaceController implements ParkingPlaceInterface  
     }
 
     @Override
-    public void free(){
+    public void free() {
         disabilityParkingPlace.setParkingPlaceState(false);
-        
+
         disabilityCarController.openRamp();
         driverView.showDisabilityDriverEnteredCar();
         disabilityCarController.closeRamp();

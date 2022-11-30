@@ -6,28 +6,28 @@ import model.vehicle_model.Car;
 import view.parkingplace_view.ParkingPlaceView;
 
 public class ParkingPlaceController implements ParkingPlaceInterface {
-    
+
     private ParkingPlace parkingPlace;
     private ParkingPlaceView parkingPlaceView;
 
-    public ParkingPlaceController(ParkingPlace parkingPlace, ParkingPlaceView parkingPlaceView){
+    public ParkingPlaceController(ParkingPlace parkingPlace, ParkingPlaceView parkingPlaceView) {
         this.parkingPlace = parkingPlace;
         this.parkingPlaceView = parkingPlaceView;
     }
 
-    public void setParkingPlace(ParkingPlace place){
+    public void setParkingPlace(ParkingPlace place) {
         this.parkingPlace = place;
     }
 
     @Override
-    public void occupy(Car car){
+    public void occupy(Car car) {
         parkingPlace.setCar(car);
         parkingPlace.setParkingPlaceState(true);
         parkingPlaceView.printOccupyParkingPlace();
     }
 
     @Override
-    public void free(){
+    public void free() {
         parkingPlace.setCar(null);
         parkingPlace.setParkingPlaceState(false);
         parkingPlaceView.printFreeParkingPlace();

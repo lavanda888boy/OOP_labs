@@ -10,31 +10,31 @@ public class PaymentTerminalController {
 
     private DriverView driverView = new DriverView();
     private DriverController driverController = new DriverController(null, driverView);
-    
+
     private PaymentTerminal paymentTerminal;
     private PaymentTerminalView paymentTerminalView;
 
-    public PaymentTerminalController(PaymentTerminal paymentTerminal, PaymentTerminalView paymentTerminalView){
+    public PaymentTerminalController(PaymentTerminal paymentTerminal, PaymentTerminalView paymentTerminalView) {
         this.paymentTerminal = paymentTerminal;
         this.paymentTerminalView = paymentTerminalView;
     }
 
-    public void setTerminalState(boolean state){
+    public void setTerminalState(boolean state) {
         paymentTerminal.setWorkingState(state);
 
-        if(state == true){
+        if (state == true) {
             paymentTerminalView.printTerminalTurnedOn();
-        } else{
+        } else {
             paymentTerminalView.printTerminalTurnedOff();
         }
     }
 
-    public void proceedPayment(Driver d){
+    public void proceedPayment(Driver d) {
         int time = d.getTimeSpent();
-        
-        if(time > 15  &&  time <= 60){
+
+        if (time > 15 && time <= 60) {
             paymentTerminal.setCashAmount(paymentTerminal.getCashAmount() + paymentTerminal.getFirstLevelFee());
-        } else if(time > 60){
+        } else if (time > 60) {
             paymentTerminal.setCashAmount(paymentTerminal.getCashAmount() + paymentTerminal.getSecondLevelFee());
         }
 

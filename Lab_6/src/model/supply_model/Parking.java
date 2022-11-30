@@ -31,7 +31,7 @@ public class Parking {
         return this.workingState;
     }
 
-    public void setWorkingState(boolean state){
+    public void setWorkingState(boolean state) {
         workingState = state;
     }
 
@@ -59,5 +59,4 @@ public class Parking {
         return this.carQueue;
     }
 
-    
 }

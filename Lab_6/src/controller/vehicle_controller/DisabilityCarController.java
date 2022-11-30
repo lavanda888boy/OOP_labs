@@ -8,21 +8,21 @@ public class DisabilityCarController {
     private DisabilityCar disabilityCar;
     private DisabilityCarView disabilityCarView;
 
-    public DisabilityCarController(DisabilityCar disabilityCar, DisabilityCarView disabilityCarView){
+    public DisabilityCarController(DisabilityCar disabilityCar, DisabilityCarView disabilityCarView) {
         this.disabilityCar = disabilityCar;
         this.disabilityCarView = disabilityCarView;
     }
 
-    public void setDisabilityCar(DisabilityCar disabilityCar){
+    public void setDisabilityCar(DisabilityCar disabilityCar) {
         this.disabilityCar = disabilityCar;
     }
 
-    public void openRamp(){
+    public void openRamp() {
         disabilityCar.setRampState(true);
         disabilityCarView.printOpenRamp(disabilityCar.getID());
     }
 
-    public void closeRamp(){
+    public void closeRamp() {
         disabilityCar.setRampState(false);
         disabilityCarView.printCloseRamp(disabilityCar.getID());
     }

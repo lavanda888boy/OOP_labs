@@ -30,11 +30,11 @@ public class PaymentTerminal {
         cashAmount = cash;
     }
 
-    public int getFirstLevelFee(){
+    public int getFirstLevelFee() {
         return this.firstLevelFee;
     }
 
-    public int getSecondLevelFee(){
+    public int getSecondLevelFee() {
         return this.secondLevelFee;
     }
 }

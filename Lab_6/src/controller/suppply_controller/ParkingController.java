@@ -11,6 +11,8 @@ import model.vehicle_model.*;
 import model.driver_model.Driver;
 import model.parkingplace_model.*;
 import view.parkingplace_view.*;
+import view.driver_view.*;
+import view.vehicle_view.*;
 import view.supply_view.*;
 
 public class ParkingController implements WorkingStateInterface {
@@ -34,6 +36,9 @@ public class ParkingController implements WorkingStateInterface {
 
     private LevelView levelView;
     private LevelController levelController;
+
+    private CarView carView;
+    private DriverView driverView;
 
     private Parking parking;
     private ParkingView parkingView;
@@ -61,6 +66,14 @@ public class ParkingController implements WorkingStateInterface {
 
         levelView = new LevelView();
         levelController = new LevelController(null, levelView);
+
+        carView = new CarView();
+
+        driverView = new DriverView();
+    }
+
+    public PaymentTerminalView getPaymentTerminalView() {
+        return this.paymentTerminalView;
     }
 
     @Override
@@ -89,13 +102,12 @@ public class ParkingController implements WorkingStateInterface {
 
             levelController.setLevel(l);
 
-            if (levelController.levelIsFull()) {
+            if (!levelController.levelIsFull()) {
                 List<ParkingPlace> list = l.getListOfParkingPlaces();
 
                 for (int i = 0; i < list.size(); i++) {
                     if (findThePlaceForTheCar(list, c) == 1) {
-                        System.out.println("The " + c.getClass().toString().substring(6) + " with id " + c.getID()
-                                + " is parked on the level " + l.getNumber());
+                        carView.printCarIsParked(c.getClass().toString(), c.getID(), l.getNumber());
                         parking.getCars().add(c);
                         gateController.close();
                         return 1;
@@ -108,7 +120,6 @@ public class ParkingController implements WorkingStateInterface {
                     if (!elevatorController.liftCar(levels.get(index + 1), c)) {
                         break;
                     }
-                    ;
                 }
             }
         }
@@ -132,7 +143,7 @@ public class ParkingController implements WorkingStateInterface {
 
                 Driver d = pp.get(pos).getCar().getDriver();
                 if (!d.getPaymentState()) {
-                    System.out.println("The driver " + d.getName() + " has to pay the bill");
+                    driverView.showNeedToPayBill(d.getName());
                     paymentTerminalController.proceedPayment(d);
                 }
 
@@ -140,14 +151,15 @@ public class ParkingController implements WorkingStateInterface {
                 parking.getCars().remove(pp.get(pos).getCar());
                 parkingPlaceController.setParkingPlace(pp.get(pos));
                 parkingPlaceController.free();
-                System.out.println("Car with id " + id + " left the parking from level " + level.getNumber());
-                System.out.println("The driver spent on the parking " + c.getDriver().getTimeSpent() + " minutes");
+
+                carView.printCarLeftParking(id, level.getNumber());
+                driverView.showTimeSpentByDriver(c.getDriver().getTimeSpent());
                 gateController.close();
 
                 return c;
             }
         }
-        System.out.println("There is no such car on the parking");
+        parkingView.printNoSuchCar();
         return null;
     }
 
@@ -183,5 +195,19 @@ public class ParkingController implements WorkingStateInterface {
         }
 
         return 0;
+    }
+
+    public void supplyTheChargers(List<Level> levels) {
+        for (Level level : levels) {
+            List<ParkingPlace> places = level.getListOfParkingPlaces();
+            for (ParkingPlace p : places) {
+                if (p instanceof ElectricParkingPlace) {
+                    ElectricParkingPlace ep = (ElectricParkingPlace) p;
+                    electricParkingPlaceController.setParkingPlace(ep);
+                    electricParkingPlaceController.fillCharger();
+                }
+            }
+        }
+        parkingView.printChargersSupplied();
     }
 }
