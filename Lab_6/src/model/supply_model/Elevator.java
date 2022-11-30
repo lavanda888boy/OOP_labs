@@ -10,6 +10,10 @@ public class Elevator {
         workingState = false;
     }
 
+    public int getMaxWeight(){
+        return this.maxWeight;
+    }
+
     public boolean getWorkingState() {
         return this.workingState;
     }

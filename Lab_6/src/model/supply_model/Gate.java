@@ -11,4 +11,8 @@ public class Gate {
     public boolean getGateState() {
         return this.opened;
     }
+
+    public void setGateState(boolean state) {
+        opened = state;
+    }
 }
