@@ -1,9 +1,9 @@
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
-import controller.suppply_controller.ParkingController;
 import model.driver_model.*;
 import model.vehicle_model.*;
+import presenter.suppply_presenter.ParkingPresenter;
 import repository.CarQueue;
 import view.supply_view.ParkingView;
 import view.vehicle_view.CarView;
@@ -24,7 +24,7 @@ public class Simulation {
 
     public static final int averageTime = 80;
 
-    private static ParkingController parkingController;
+    private static ParkingPresenter parkingPresenter;
 
     public static void main(String[] args) throws InterruptedException {
         String[] names = { "Dan", "Steve", "Peter", "Andy", "Matthew", "Paul", "Robert", "Angelo" };
@@ -36,7 +36,7 @@ public class Simulation {
 
         Parking parking = new Parking(gate, elevator, paymentTerminal, carQueue);
         ParkingView parkingView = new ParkingView();
-        parkingController = new ParkingController(parking, parkingView);
+        parkingPresenter = new ParkingPresenter(parking, parkingView);
 
         CarView carView = new CarView();
 
@@ -67,7 +67,7 @@ public class Simulation {
             if (entranceTime <= incomePercent * 100) {
                 parking.getCarQueue().addCar(addableCar);
                 System.out.println("\n");
-                if (parkingController.parkTheCar() == 1) {
+                if (parkingPresenter.parkTheCar() == 1) {
                     parking.getCarQueue().removeCar();
                 }
                 System.out.println("\n");
@@ -75,16 +75,16 @@ public class Simulation {
                 System.out.println();
             } else {
                 if (parking.getCars().size() != 0) {
-                    leavingCar = parkingController.removeTheCar();
+                    leavingCar = parkingPresenter.removeTheCar();
                     if (leavingCar instanceof ElectricCar) {
                         System.out.println("\n");
                         TimeUnit.MILLISECONDS.sleep(1000);
-                        parkingController.supplyTheChargers(parking.getLevels());
+                        parkingPresenter.supplyTheChargers(parking.getLevels());
                         TimeUnit.MILLISECONDS.sleep(1000);
                     }
                     TimeUnit.MILLISECONDS.sleep(1000);
                     System.out.println("\n");
-                    parkingController.getPaymentTerminalView()
+                    parkingPresenter.getPaymentTerminalView()
                             .printCurrentCashAmount(parking.getPaymentTerminal().getCashAmount());
                     System.out.println();
                 }
@@ -197,7 +197,7 @@ public class Simulation {
 
         System.out.println();
         while (!parking.getCarQueue().isEmptyOfCars()) {
-            parkingController.parkTheCar();
+            parkingPresenter.parkTheCar();
             parking.getCarQueue().removeCar();
             System.out.println();
         }

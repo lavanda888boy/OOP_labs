@@ -1,15 +1,15 @@
-package controller.suppply_controller;
+package presenter.suppply_presenter;
 
 import connection_interfaces.WorkingStateInterface;
 import model.supply_model.Gate;
 import view.supply_view.GateView;
 
-public class GateController implements WorkingStateInterface {
+public class GatePresenter implements WorkingStateInterface {
 
     private Gate gate;
     private GateView gateView;
 
-    public GateController(Gate gate, GateView gateView) {
+    public GatePresenter(Gate gate, GateView gateView) {
         this.gate = gate;
         this.gateView = gateView;
     }

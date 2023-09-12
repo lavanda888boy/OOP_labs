@@ -1,13 +1,14 @@
-package controller.suppply_controller;
+package presenter.suppply_presenter;
 
 import java.util.List;
 import java.util.Random;
 
 import connection_interfaces.WorkingStateInterface;
-import controller.parkingplace_controller.*;
-import controller.parkingplace_controller.ElectricParkingPlaceController;
 import model.supply_model.*;
 import model.vehicle_model.*;
+import presenter.parkingplace_presenter.DisabilityParkingPlacePresenter;
+import presenter.parkingplace_presenter.ElectricParkingPlacePresenter;
+import presenter.parkingplace_presenter.ParkingPlacePresenter;
 import model.driver_model.Driver;
 import model.parkingplace_model.*;
 import view.parkingplace_view.*;
@@ -15,27 +16,27 @@ import view.driver_view.*;
 import view.vehicle_view.*;
 import view.supply_view.*;
 
-public class ParkingController implements WorkingStateInterface {
+public class ParkingPresenter implements WorkingStateInterface {
 
     private PaymentTerminalView paymentTerminalView;
-    private PaymentTerminalController paymentTerminalController;
+    private PaymentTerminalPresenter paymentTerminalController;
 
     private ElevatorView elevatorView;
-    private ElevatorController elevatorController;
+    private ElevatorPresenter elevatorController;
 
     private GateView gateView;
-    private GateController gateController;
+    private GatePresenter gateController;
 
     private ParkingPlaceView parkingPlaceView;
-    private ParkingPlaceController parkingPlaceController;
+    private ParkingPlacePresenter parkingPlaceController;
 
     private ElectricParkingPlaceView electricParkingPlaceView;
-    private ElectricParkingPlaceController electricParkingPlaceController;
+    private ElectricParkingPlacePresenter electricParkingPlaceController;
 
-    private DisabilityParkingPlaceController disabilityParkingPlaceController;
+    private DisabilityParkingPlacePresenter disabilityParkingPlaceController;
 
     private LevelView levelView;
-    private LevelController levelController;
+    private LevelPresenter levelController;
 
     private CarView carView;
     private DriverView driverView;
@@ -43,29 +44,29 @@ public class ParkingController implements WorkingStateInterface {
     private Parking parking;
     private ParkingView parkingView;
 
-    public ParkingController(Parking parking, ParkingView parkingView) {
+    public ParkingPresenter(Parking parking, ParkingView parkingView) {
         this.parking = parking;
         this.parkingView = parkingView;
 
         paymentTerminalView = new PaymentTerminalView();
-        paymentTerminalController = new PaymentTerminalController(parking.getPaymentTerminal(), paymentTerminalView);
+        paymentTerminalController = new PaymentTerminalPresenter(parking.getPaymentTerminal(), paymentTerminalView);
 
         elevatorView = new ElevatorView();
-        elevatorController = new ElevatorController(parking.getElevator(), elevatorView);
+        elevatorController = new ElevatorPresenter(parking.getElevator(), elevatorView);
 
         gateView = new GateView();
-        gateController = new GateController(parking.getGate(), gateView);
+        gateController = new GatePresenter(parking.getGate(), gateView);
 
         parkingPlaceView = new ParkingPlaceView();
-        parkingPlaceController = new ParkingPlaceController(null, parkingPlaceView);
+        parkingPlaceController = new ParkingPlacePresenter(null, parkingPlaceView);
 
         electricParkingPlaceView = new ElectricParkingPlaceView();
-        electricParkingPlaceController = new ElectricParkingPlaceController(null, electricParkingPlaceView);
+        electricParkingPlaceController = new ElectricParkingPlacePresenter(null, electricParkingPlaceView);
 
-        disabilityParkingPlaceController = new DisabilityParkingPlaceController(null);
+        disabilityParkingPlaceController = new DisabilityParkingPlacePresenter(null);
 
         levelView = new LevelView();
-        levelController = new LevelController(null, levelView);
+        levelController = new LevelPresenter(null, levelView);
 
         carView = new CarView();
 

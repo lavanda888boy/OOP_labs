@@ -1,4 +1,4 @@
-package controller.parkingplace_controller;
+package presenter.parkingplace_presenter;
 
 import connection_interfaces.ParkingPlaceInterface;
 import model.parkingplace_model.ElectricParkingPlace;
@@ -7,14 +7,14 @@ import model.vehicle_model.ElectricCar;
 import view.parkingplace_view.ElectricParkingPlaceView;
 import view.vehicle_view.ElectricCarView;
 
-public class ElectricParkingPlaceController implements ParkingPlaceInterface {
+public class ElectricParkingPlacePresenter implements ParkingPlaceInterface {
 
     ElectricCarView electricCarView = new ElectricCarView();
 
     private ElectricParkingPlace electricParkingPlace;
     private ElectricParkingPlaceView electricParkingPlaceView;
 
-    public ElectricParkingPlaceController(ElectricParkingPlace electricParkingPlace,
+    public ElectricParkingPlacePresenter(ElectricParkingPlace electricParkingPlace,
             ElectricParkingPlaceView electricParkingPlaceView) {
         this.electricParkingPlace = electricParkingPlace;
         this.electricParkingPlaceView = electricParkingPlaceView;

@@ -1,25 +1,25 @@
-package controller.parkingplace_controller;
+package presenter.parkingplace_presenter;
 
 import connection_interfaces.ParkingPlaceInterface;
-import controller.driver_controller.DriverController;
-import controller.vehicle_controller.DisabilityCarController;
 import model.parkingplace_model.DisabilityParkingPlace;
 import model.vehicle_model.Car;
 import model.vehicle_model.DisabilityCar;
+import presenter.driver_presenter.DriverPresenter;
+import presenter.vehicle_presenter.DisabilityCarPresenter;
 import view.driver_view.DriverView;
 import view.vehicle_view.DisabilityCarView;
 
-public class DisabilityParkingPlaceController implements ParkingPlaceInterface {
+public class DisabilityParkingPlacePresenter implements ParkingPlaceInterface {
 
     private DriverView driverView = new DriverView();
-    private DriverController driverController = new DriverController(null, driverView);
+    private DriverPresenter driverController = new DriverPresenter(null, driverView);
 
     private DisabilityCarView disabilityCarView = new DisabilityCarView();
-    private DisabilityCarController disabilityCarController = new DisabilityCarController(null, disabilityCarView);
+    private DisabilityCarPresenter disabilityCarController = new DisabilityCarPresenter(null, disabilityCarView);
 
     private DisabilityParkingPlace disabilityParkingPlace;
 
-    public DisabilityParkingPlaceController(DisabilityParkingPlace disabilityParkingPlace) {
+    public DisabilityParkingPlacePresenter(DisabilityParkingPlace disabilityParkingPlace) {
         this.disabilityParkingPlace = disabilityParkingPlace;
     }
 

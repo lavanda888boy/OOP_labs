@@ -1,20 +1,20 @@
-package controller.suppply_controller;
+package presenter.suppply_presenter;
 
-import controller.driver_controller.DriverController;
 import model.driver_model.Driver;
 import model.supply_model.PaymentTerminal;
+import presenter.driver_presenter.DriverPresenter;
 import view.driver_view.DriverView;
 import view.supply_view.PaymentTerminalView;
 
-public class PaymentTerminalController {
+public class PaymentTerminalPresenter {
 
     private DriverView driverView = new DriverView();
-    private DriverController driverController = new DriverController(null, driverView);
+    private DriverPresenter driverController = new DriverPresenter(null, driverView);
 
     private PaymentTerminal paymentTerminal;
     private PaymentTerminalView paymentTerminalView;
 
-    public PaymentTerminalController(PaymentTerminal paymentTerminal, PaymentTerminalView paymentTerminalView) {
+    public PaymentTerminalPresenter(PaymentTerminal paymentTerminal, PaymentTerminalView paymentTerminalView) {
         this.paymentTerminal = paymentTerminal;
         this.paymentTerminalView = paymentTerminalView;
     }

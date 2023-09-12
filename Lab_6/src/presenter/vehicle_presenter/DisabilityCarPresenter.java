@@ -1,14 +1,14 @@
-package controller.vehicle_controller;
+package presenter.vehicle_presenter;
 
 import model.vehicle_model.DisabilityCar;
 import view.vehicle_view.DisabilityCarView;
 
-public class DisabilityCarController {
+public class DisabilityCarPresenter {
 
     private DisabilityCar disabilityCar;
     private DisabilityCarView disabilityCarView;
 
-    public DisabilityCarController(DisabilityCar disabilityCar, DisabilityCarView disabilityCarView) {
+    public DisabilityCarPresenter(DisabilityCar disabilityCar, DisabilityCarView disabilityCarView) {
         this.disabilityCar = disabilityCar;
         this.disabilityCarView = disabilityCarView;
     }

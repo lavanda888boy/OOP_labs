@@ -1,4 +1,4 @@
-package controller.suppply_controller;
+package presenter.suppply_presenter;
 
 import java.util.List;
 
@@ -6,12 +6,12 @@ import model.parkingplace_model.ParkingPlace;
 import model.supply_model.Level;
 import view.supply_view.LevelView;
 
-public class LevelController {
+public class LevelPresenter {
 
   private Level level;
   private LevelView levelView;
 
-  public LevelController(Level level, LevelView levelView) {
+  public LevelPresenter(Level level, LevelView levelView) {
     this.level = level;
     this.levelView = levelView;
   }

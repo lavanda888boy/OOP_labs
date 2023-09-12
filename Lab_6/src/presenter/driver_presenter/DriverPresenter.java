@@ -1,14 +1,14 @@
-package controller.driver_controller;
+package presenter.driver_presenter;
 
 import model.driver_model.Driver;
 import view.driver_view.DriverView;
 
-public class DriverController {
+public class DriverPresenter {
 
     private Driver driver;
     private DriverView driverView;
 
-    public DriverController(Driver driver, DriverView driverView) {
+    public DriverPresenter(Driver driver, DriverView driverView) {
         this.driver = driver;
         this.driverView = driverView;
     }

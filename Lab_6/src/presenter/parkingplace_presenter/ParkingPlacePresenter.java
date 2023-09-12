@@ -1,16 +1,16 @@
-package controller.parkingplace_controller;
+package presenter.parkingplace_presenter;
 
 import connection_interfaces.ParkingPlaceInterface;
 import model.parkingplace_model.ParkingPlace;
 import model.vehicle_model.Car;
 import view.parkingplace_view.ParkingPlaceView;
 
-public class ParkingPlaceController implements ParkingPlaceInterface {
+public class ParkingPlacePresenter implements ParkingPlaceInterface {
 
     private ParkingPlace parkingPlace;
     private ParkingPlaceView parkingPlaceView;
 
-    public ParkingPlaceController(ParkingPlace parkingPlace, ParkingPlaceView parkingPlaceView) {
+    public ParkingPlacePresenter(ParkingPlace parkingPlace, ParkingPlaceView parkingPlaceView) {
         this.parkingPlace = parkingPlace;
         this.parkingPlaceView = parkingPlaceView;
     }
